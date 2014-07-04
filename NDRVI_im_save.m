@@ -1,0 +1,69 @@
+function [] = NDRVI_im_save(name_im,nombreIndice,chkProceso,ima,cmap)
+%UNTITLED Summary of this function goes here
+%   Detailed explanation goes here
+
+im_size=size(ima);
+im_cmap=size(cmap);
+im_save=zeros(im_size(1),im_size(2),3);
+
+if min(min(ima))<0
+    for j=1:im_size(2)
+        for i=1:im_size(1)
+            if ima(i,j)<0
+                ima(i,j)=0;
+            end
+        end
+    end
+end
+
+
+if chkProceso
+prompt={'Nombre de la imagen:','Calidad:'};
+dlg_title='Guardar imagen';
+num_lines=1;
+def={'NDVI_LK','100'};
+answer=inputdlg(prompt,dlg_title,num_lines,def);
+im_name=answer{1};
+cal_im=str2double(answer{2});
+
+else
+    im_name=name_im;
+    cal_im=double(100);
+end
+im_name_cmap=strcat(im_name,nombreIndice,'.jpg');
+%im_name_cgray=strcat(im_name,'_cgray','.jpg');
+im_name=strcat(im_name,'.jpg');
+im_name=char(im_name);
+im_name_cmap=char(im_name_cmap);
+%im_name_cgray=char(im_name_cgray);
+
+
+if strcmp('NDVI',nombreIndice) %|| strcmp('TCARI',nombreIndice)
+for j=1:im_size(2)
+    
+    for i=1:im_size(1)
+        k=2;
+        while ima(i,j)>k/im_cmap(1)
+            k=k+1;
+        end
+        if abs(ima(i,j)-k/im_cmap(1))<abs(ima(i,j)-(k-1)/im_cmap(1))
+            im_save(i,j,1)=cmap(k,1); im_save(i,j,2)=cmap(k,2); im_save(i,j,3)=cmap(k,3);
+        else
+            im_save(i,j,1)=cmap(k-1,1); im_save(i,j,2)=cmap(k-1,2); im_save(i,j,3)=cmap(k-1,3);
+        end
+    end
+end
+
+imwrite(ima,strcat('Procesadas/',nombreIndice,'/',im_name),'Quality',cal_im);
+imwrite(im_save,strcat('Procesadas/',nombreIndice,'/',im_name_cmap),'Quality',cal_im);
+
+else
+    
+imwrite(ima,strcat('Procesadas/',nombreIndice,'/',im_name),'Quality',cal_im);
+imwrite(ima,hot(256),strcat('Procesadas/',nombreIndice,'/',im_name_cmap),'Quality',cal_im);
+
+
+
+end
+
+end

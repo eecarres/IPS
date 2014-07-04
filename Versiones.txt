@@ -1,0 +1,11 @@
+4.1 	-Cambia la opción R+IR por Multibanda (trabaja con las 6 bandas de la TetraCam)
+	-Implementacion de las clases Banda para cada banda espectral/banda de cámara
+	-Procesado de imágenes en grupo
+	-Procesado en paralelo (opción)
+	-Añadida la opción de No Interpolación
+
+4.2	-Se añade la opción Multibanda (Imagen Única) en el menu principal
+
+4.3	-Añadida la opción de stretching de la capa seleccionada
+	-Añadida la función de paso de Tiffs Multipage a Tiffs 16 bits
+	-Añadida la opción de calibrar una banda o todas
