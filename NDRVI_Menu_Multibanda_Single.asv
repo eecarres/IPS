@@ -445,14 +445,14 @@ else
             
             % Calculamos DCNI si se ha seleccionado la opción
             if get(handles.chkDCNI,'Value')==1              
-            DCNI_Actual=DCNI_Multibanda(R720,R710,R670,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataIm(:,:,R720.id),dataIm(:,:,R710.id),dataIm(:,:,R670.id));                 
+            DCNI_Actual=DCNI_Multibanda(R730,R710,R670,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataIm(:,:,R730.id),dataIm(:,:,R710.id),dataIm(:,:,R670.id));                 
             numBandas=numBandas+1;
             dataIm(:,:,numBandas)=DCNI_Actual*1000;
             end  
             
             % Calculamos DCNI si se ha seleccionado la opción
             if get(handles.chkTCARI,'Value')==1              
-           TCARI_Actual=TCARI_OSAVI_Multibanda(R710,R670,R550,R800,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataIm(:,:,R710.id),dataIm(:,:,R670.id),dataIm(:,:,R550.id),dataIm(:,:,R800.id));                 
+           TCARI_Actual=TCARI_OSAVI_Multibanda(R710,R670,R550,R780,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataIm(:,:,R710.id),dataIm(:,:,R670.id),dataIm(:,:,R550.id),dataIm(:,:,R780.id));                 
             numBandas=numBandas+1;
             dataIm(:,:,numBandas)=TCARI_Actual*1000;
             end 

@@ -1,0 +1,23 @@
+1.-Primero abrir el archivo Config_TetraCam_db.xlsx:
+	-Añadimos una página con el nombre que deseemos
+	-Copiamos el contenido de otra página cualquiera
+	-Cambiamos la columna de las bandas espectrales (la segunda) con los valores correspondientes
+	-Guardamos
+
+2.-Después hay que abrir el archivo NDRVI_Menu_Multibanda_Single.m y vamos a la función btnProcesa_Callback:
+	-Buscamos la parte donde hay algo similar a:
+	
+	switch configTetracam
+    
+    
+   	 case 'Estandar'
+                   R780=handles.Master;
+                   R450=handles.B1;
+                   R550=handles.B2;
+                   R670=handles.B3;
+                   R710=handles.B4;
+                   R730=handles.B5;
+
+	-Copiamos un caso extra, y en la parte de la izquierda de los iguales cambiamos las bandas espectrales por las correspondientes (igual que en el excel). Donde pone 'Estandar' sustituir por el nombre exacto de la página de Excel o fallará (no poner acentos ni ñ)
+
+3.- Repetir el proceso con NDRVI_Menu_Multibanda.m y la funcion pushbutton_procesa_Callback.

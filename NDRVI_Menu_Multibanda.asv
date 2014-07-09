@@ -1031,7 +1031,7 @@ configTetracam=get(handles.lblConfig,'String');
 switch configTetracam
     
     
-    case 'Estandar (ilerdair)'
+    case 'Estandar'
                    R780=handles.Master;
                    R450=handles.B1;
                    R550=handles.B2;
@@ -1039,20 +1039,14 @@ switch configTetracam
                    R710=handles.B4;
                    R730=handles.B5;
                     
-    case 'Vol 1 Algerri'
-                   R800=handles.Master;
+    case 'Hemav_1'
+                   R780=handles.Master;
                    R450=handles.B1;
                    R550=handles.B2;
                    R670=handles.B3;
                    R710=handles.B4;
-                   R720=handles.B5;
-    case 'Vol 2 Algerri'
-                   R780=handles.Master;
-                   R530=handles.B1;
-                   R570=handles.B2;
-                   R670=handles.B3;
-                   R710=handles.B4;
-                   R730=handles.B5; 
+                   R730=handles.B5;
+    case 'Hemav_2'
     
     otherwise
         
