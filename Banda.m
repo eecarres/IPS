@@ -5,10 +5,10 @@ classdef Banda
     
     properties
         path
-        valores
+        valores % contiene la información de los modos de interpolación (valores o opciones de no interpolacion)
         calib
         database
-        reflectancias
+        reflectancias % Valores de reflectancia de cada banda para el blanco gris y negro
         X1
         dentroIm
         fueraIm

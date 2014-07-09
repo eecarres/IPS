@@ -59,11 +59,18 @@ end
 
 %% Tipo de interpolación de datos
 switch valores_Banda 
-                case 1 %% Si seleccionamos la no interpolación
+                case 1 %% Si seleccionamos la no interpolación NEGRO
 
-                yi(1)=0.9;yi(2)=0.05;
+                yi(1)=reflectancias_Banda(1);yi(2)=reflectancias_Banda(3);
                 xi(1)=x1_Banda(1);xi(2)=x1_Banda(3);
-                case 2
+                
+                
+                 case 2 %% Si seleccionamos la no interpolación GRIS
+
+               yi(1)=reflectancias_Banda(1);yi(2)=reflectancias_Banda(2);
+               xi(1)=x1_Banda(1);xi(2)=x1_Banda(3);
+                
+                case 3
     
         prompt={'Reflectancia blanco:','Reflectancia gris:','Reflectancia negro:','Param. interpolación 1:','Param. interpolación 2:','sin interpolar (0 es si):'};
         %     prompt={'Reflectancia blanco:','Reflectancia gris:','Reflectancia negro:','Param. interpolación 1:','Param. interpolación 2:'};
