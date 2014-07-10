@@ -181,6 +181,14 @@ fueraIm=get(handles.rdbFueraIm,'Value');
 
 %% si es 0 es dentro de imagen y 1 es fuera imagen
 if fueraIm==1
+    
+    
+    
+    
+    % si es calibracion simple se sigue el procedimiento estándar:
+    % guardamos X e Y de la primera imagen y luego evaluamos las otras
+    % bandas con esas coordenadas
+if get(handles.chkCalibSimple,'Value')==1
     %% Calibración Master
     [Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*.*'},'Selecciona imagen calibración de 9 bandas');
     %% Leemos la imagen y nos quedamos solo con el canal que nos interesa (Tiff tiene 3 canales iguales aunque sea monocroma)
@@ -197,6 +205,7 @@ if fueraIm==1
     ND_B5=ND(:,:,6);
     else
         msgbox('Las imágenes deben ser Tif de 6 bandas','Error en el programa');
+        return;
     end 
     %% Obtenemos el máximo y el mínimo y hacemos el stretching
     minimo(6)=min(min(ND_Master)); %% Doble min pq es matriz
@@ -259,7 +268,142 @@ if fueraIm==1
     minimo_g= ND_B5( round(y(2,1)) , round(x(2,1)) );  %negro/gris
     minimo_n= ND_B5( round(y(3,1)) , round(x(3,1)) );  %negro/gris
     handles.x1_B5=[maximo minimo_g minimo_n];
+    clear Im_PathName Im_Name ND ND_IR minimo1 maximo1 ima1 maximo minimo_g minimo_n x 
+
+
+else % Si se quiere seleccionar banda por banda
+
+
+    % Calibración Master
+    [Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*.*'},'Selecciona imagen de calibración');
+    % Leemos la imagen y nos quedamos solo con el canal que nos interesa (Tiff tiene 3 canales iguales aunque sea monocroma)
+    ND=uint16(imread(strcat(Im_PathName,Im_Name)));
+    
+    tamanoImagen=size(ND);
+    if tamanoImagen(3) == 6
+    ND_Master=ND(:,:,1);
+    ND_B1=ND(:,:,2);
+    ND_B2=ND(:,:,3);
+    ND_B3=ND(:,:,4);
+    ND_B4=ND(:,:,5);
+    ND_B5=ND(:,:,6);
+    else
+        msgbox('Las imágenes deben ser Tif de 6 bandas','Error en el programa');
+        return;
+    end
+    
+    % Master
+    
+    % Obtenemos el máximo y el mínimo y hacemos el stretching
+    minimo1=min(min(ND_Master)); %% Doble min pq es matriz
+    maximo1=max(max(ND_Master)); %% Doble max pq es matriz
+    ima1=figure;
+    imshow(ND_Master);
+    caxis([ minimo1 maximo1]);
+    title('Marcar primero blanco, luego gris y finalmente negro (banda Master)');
+    colorbar;
+    [x,y]= ginput(3);
+    
+    %% Guardamos los valores digitales de los puntos para luego mostrarlos en la UI
+    maximo= ND_Master( round(y(1,1)) , round(x(1,1)) );  %blanco
+    minimo_g= ND_Master( round(y(2,1)) , round(x(2,1)) );  %negro/gris
+    minimo_n= ND_Master( round(y(3,1)) , round(x(3,1)) );  %negro/gris
+    handles.x1_Master=[maximo minimo_g minimo_n];
+    close(ima1);
     clear Im_PathName Im_Name ND ND_IR minimo1 maximo1 ima1 maximo minimo_g minimo_n x y
+
+
+    % Banda 1
+
+    minimo1=min(min(ND_B1));
+    maximo1=max(max(ND_B1));
+    ima1=figure;
+    imshow(ND_B1);
+    caxis([ minimo1 maximo1]);
+    title('Marcar primero blanco, luego gris y finalmente negro (banda 1)');
+    colorbar;
+    [x,y]= ginput(3);
+    maximo= ND_B1( round(y(1,1)) , round(x(1,1)) );  %blanco
+    minimo_g= ND_B1( round(y(2,1)) , round(x(2,1)) );  %negro/gris
+    minimo_n= ND_B1( round(y(3,1)) , round(x(3,1)) );  %negro/gris
+    handles.x1_B1=[maximo minimo_g minimo_n];
+    close(ima1);
+    clear Im_PathName Im_Name ND ND_B1 minimo1 maximo1 ima1 maximo minimo_g minimo_n x y
+    
+    
+    % Banda 2
+    
+    minimo1=min(min(ND_B2));
+    maximo1=max(max(ND_B2));
+    ima1=figure;
+    imshow(ND_B2);
+    caxis([ minimo1 maximo1]);
+    title('Marcar primero blanco, luego gris y finalmente negro (banda 2)');
+    colorbar;
+    [x,y]= ginput(3);
+    maximo= ND_B2( round(y(1,1)) , round(x(1,1)) );  %blanco
+    minimo_g= ND_B2( round(y(2,1)) , round(x(2,1)) );  %negro/gris
+    minimo_n= ND_B2( round(y(3,1)) , round(x(3,1)) );  %negro/gris
+    handles.x1_B2=[maximo minimo_g minimo_n];
+    close(ima1);
+    clear Im_PathName Im_Name ND ND_B2 minimo1 maximo1 ima1 maximo minimo_g minimo_n x y
+
+    
+    % Banda 3
+    
+    minimo1=min(min(ND_B3));
+    maximo1=max(max(ND_B3));
+    ima1=figure;
+    imshow(ND_B3);
+    caxis([ minimo1 maximo1]);
+    title('Marcar primero blanco, luego gris y finalmente negro (banda 3)');
+    colorbar;
+    [x,y]= ginput(3);
+    maximo= ND_B3( round(y(1,1)) , round(x(1,1)) );  %blanco
+    minimo_g= ND_B3( round(y(2,1)) , round(x(2,1)) );  %negro/gris
+    minimo_n= ND_B3( round(y(3,1)) , round(x(3,1)) );  %negro/gris
+    handles.x1_B3=[maximo minimo_g minimo_n];
+    close(ima1);
+    clear Im_PathName Im_Name ND ND_B3 minimo1 maximo1 ima1 maximo minimo_g minimo_n x y
+
+    
+    %Banda 4
+    
+    minimo1=min(min(ND_B4));
+    maximo1=max(max(ND_B4));
+    ima1=figure;
+    imshow(ND_B4);
+    caxis([ minimo1 maximo1]);
+    title('Marcar primero blanco, luego gris y finalmente negro (banda 4)');
+    colorbar;
+    [x,y]= ginput(3);
+    maximo= ND_B4( round(y(1,1)) , round(x(1,1)) );  %blanco
+    minimo_g= ND_B4( round(y(2,1)) , round(x(2,1)) );  %negro/gris
+    minimo_n= ND_B4( round(y(3,1)) , round(x(3,1)) );  %negro/gris
+    handles.x1_B4=[maximo minimo_g minimo_n];
+    close(ima1);
+    clear Im_PathName Im_Name ND ND_B4 minimo1 maximo1 ima1 maximo minimo_g minimo_n x y
+
+    
+    % Banda 5
+    
+    minimo1=min(min(ND_B5));
+    maximo1=max(max(ND_B5));
+    ima1=figure;
+    imshow(ND_B5);
+    caxis([ minimo1 maximo1]);
+    title('Marcar primero blanco, luego gris y finalmente negro (banda 5)');
+    colorbar;
+    [x,y]= ginput(3);
+    maximo= ND_B5( round(y(1,1)) , round(x(1,1)) );  %blanco
+    minimo_g= ND_B5( round(y(2,1)) , round(x(2,1)) );  %negro/gris
+    minimo_n= ND_B5( round(y(3,1)) , round(x(3,1)) );  %negro/gris
+    handles.x1_B5=[maximo minimo_g minimo_n];
+    close(ima1);
+    clear Im_PathName Im_Name ND ND_B5 minimo1 maximo1 ima1 maximo minimo_g minimo_n x y
+
+end 
+    
 else
     %% Si es dentro de imagen se colocan como 0 los valores digitales de negro blanco y gris
     handles.x1_Master(1)=0; handles.x1_Master(2)=handles.x1_Master(1); handles.x1_Master(3)=handles.x1_Master(1);
@@ -391,14 +535,14 @@ switch configTetracam
                    R710=handles.B4;
                    R730=handles.B5;
                     
-    case 'Vol 1 Algerri'
+    case 'Config 1 Algerri'
                    R800=handles.Master;
                    R450=handles.B1;
                    R550=handles.B2;
                    R670=handles.B3;
                    R710=handles.B4;
                    R720=handles.B5;
-    case 'Vol 2 Algerri'
+    case 'Config 2 Algerri'
                    R780=handles.Master;
                    R530=handles.B1;
                    R570=handles.B2;
@@ -1141,7 +1285,7 @@ function edit_calib_blanco_4_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
-
+ 
 
 % --- Executes during object creation, after setting all properties.
 function edit_calib_gris_4_CreateFcn(hObject, eventdata, handles)
@@ -1470,3 +1614,12 @@ function btnCambioIndices_Callback(hObject, eventdata, handles)
 % hObject    handle to btnCambioIndices (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+
+% --- Executes on button press in chkCalibSimple.
+function chkCalibSimple_Callback(hObject, eventdata, handles)
+% hObject    handle to chkCalibSimple (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of chkCalibSimple

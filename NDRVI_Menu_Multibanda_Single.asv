@@ -391,14 +391,14 @@ switch configTetracam
                    R710=handles.B4;
                    R730=handles.B5;
                     
-    case 'Vol 1 Algerri'
+    case 'Config 1 Algerri'
                    R800=handles.Master;
                    R450=handles.B1;
                    R550=handles.B2;
                    R670=handles.B3;
                    R710=handles.B4;
                    R720=handles.B5;
-    case 'Vol 2 Algerri'
+    case 'Config 2 Algerri'
                    R780=handles.Master;
                    R530=handles.B1;
                    R570=handles.B2;
@@ -445,14 +445,14 @@ else
             
             % Calculamos DCNI si se ha seleccionado la opción
             if get(handles.chkDCNI,'Value')==1              
-            DCNI_Actual=DCNI_Multibanda(R730,R710,R670,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataIm(:,:,R730.id),dataIm(:,:,R710.id),dataIm(:,:,R670.id));                 
+            DCNI_Actual=DCNI_Multibanda(R720,R710,R670,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataIm(:,:,R720.id),dataIm(:,:,R710.id),dataIm(:,:,R670.id));                 
             numBandas=numBandas+1;
             dataIm(:,:,numBandas)=DCNI_Actual*1000;
             end  
             
             % Calculamos DCNI si se ha seleccionado la opción
             if get(handles.chkTCARI,'Value')==1              
-           TCARI_Actual=TCARI_OSAVI_Multibanda(R710,R670,R550,R780,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataIm(:,:,R710.id),dataIm(:,:,R670.id),dataIm(:,:,R550.id),dataIm(:,:,R780.id));                 
+           TCARI_Actual=TCARI_OSAVI_Multibanda(R710,R670,R550,R800,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataIm(:,:,R710.id),dataIm(:,:,R670.id),dataIm(:,:,R550.id),dataIm(:,:,R800.id));                 
             numBandas=numBandas+1;
             dataIm(:,:,numBandas)=TCARI_Actual*1000;
             end 
@@ -1141,7 +1141,7 @@ function edit_calib_blanco_4_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
-
+ 
 
 % --- Executes during object creation, after setting all properties.
 function edit_calib_gris_4_CreateFcn(hObject, eventdata, handles)
