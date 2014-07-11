@@ -22,7 +22,7 @@ function varargout = NDRVI_Main(varargin)
 
 % Edit the above text to modify the response to help NDRVI_Main
 
-% Last Modified by GUIDE v2.5 01-Jul-2014 10:26:06
+% Last Modified by GUIDE v2.5 11-Jul-2014 11:31:17
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -59,6 +59,25 @@ global program_name;
 program_name='AgroMav Image Processing Software';
 set(handles.title,'string',program_name);
 
+
+nombresProyectos = dir(fullfile('C:/ Agromav IPS'));
+
+numeroProyectos= size(nombresProyectos);
+numeroProyectos=numeroProyectos(1);
+nombresProyectos=char(nombresProyectos.name);
+j=0;
+if numeroProyectos>2
+for i=3:numeroProyectos
+    j=j+1;
+    nombresLista(j,:)=char(nombresProyectos(i,:));
+    
+end
+set(handles.lstProyectosExistentes,'String',nombresLista);
+end
+if nargin==4
+    indice=varargin{1};
+    set(handles.lstProyectosExistentes,'Value',indice);
+end
 % Update handles structure
 guidata(hObject, handles);
 
@@ -125,28 +144,11 @@ function NDRVI_MultiBanda_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+proyectos=get(handles.lstProyectosExistentes,'String');
+indice=get(handles.lstProyectosExistentes,'Value');
+path=strcat('C:/Agromav IPS/',char(proyectos(indice,:)));
 close NDRVI_Main;
-NDRVI_Menu_Multibanda;
-
-
-% --- Executes on button press in NDRVI_Blue.
-function NDRVI_Blue_Callback(hObject, eventdata, handles)
-% hObject    handle to NDRVI_Blue (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-close NDRVI_Main;
-NDRVI_Menu_Blue;
-
-
-% --- Executes on button press in PostProc.
-function PostProc_Callback(hObject, eventdata, handles)
-% hObject    handle to PostProc (see GCBO)
-% eventdata  reserved - to be defined in a future version of MATLAB
-% handles    structure with handles and user data (see GUIDATA)
-
-close NDRVI_Main;
-NDRVI_Im_PostProc;
+NDRVI_Menu_Multibanda(path,indice);
 
 
 % --- Executes on button press in NDRVI_MultiBandaSingle.
@@ -154,10 +156,88 @@ function NDRVI_MultiBandaSingle_Callback(hObject, eventdata, handles)
 % hObject    handle to NDRVI_MultiBandaSingle (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+proyectos=get(handles.lstProyectosExistentes,'String');
+indice=get(handles.lstProyectosExistentes,'Value');
+path=strcat('C:/Agromav IPS/',char(proyectos(indice,:)));
 close NDRVI_Main;
-NDRVI_Menu_Multibanda_Single;
+NDRVI_Menu_Multibanda_Single(path,indice);
 
 
 function btnTif16_Callback(hObject, eventdata, handles)
+proyectos=get(handles.lstProyectosExistentes,'String');
+indice=get(handles.lstProyectosExistentes,'Value');
+path=strcat('C:/Agromav IPS/',char(proyectos(indice,:)));
 close NDRVI_Main;
-NDRVI_TiffMPa16;
+NDRVI_TiffMPa16(path,indice);
+
+
+function btnCreaDirectorio_Callback(hObject, eventdata, handles)
+
+global nombreProyecto;
+textoIntroducido=get(handles.edtNombreProyecto,'String');
+textoIntroducido=strtrim(textoIntroducido);
+if isempty(textoIntroducido) || strcmp(textoIntroducido,'Introduzca nombre de proyecto')
+    msgbox('Introduce un nombre de proyecto correcto')
+    return;
+else
+nombreProyecto=textoIntroducido;
+mkdir('C:/ Agromav IPS', nombreProyecto);   
+mkdir(strcat('C:/ Agromav IPS/',nombreProyecto),'Tiffs Multipage');   
+mkdir(strcat('C:/ Agromav IPS/',nombreProyecto),'Tiffs 16 bits para procesar');   
+mkdir(strcat('C:/ Agromav IPS/',nombreProyecto,'/Tiffs 16 bits para procesar'),'6 bandes');
+mkdir(strcat('C:/ Agromav IPS/',nombreProyecto,'/Tiffs 16 bits para procesar'),'Multibandes');   
+mkdir(strcat('C:/ Agromav IPS/',nombreProyecto),'Procesadas');   
+mkdir(strcat('C:/ Agromav IPS/',nombreProyecto,'/Procesadas'),'Multi'); 
+mkdir(strcat('C:/ Agromav IPS/',nombreProyecto,'/Procesadas'),'NDVI'); 
+mkdir(strcat('C:/ Agromav IPS/',nombreProyecto,'/Procesadas'),'DCNI');  
+mkdir(strcat('C:/ Agromav IPS/',nombreProyecto,'/Procesadas'),'TCARI');  
+mkdir(strcat('C:/ Agromav IPS/',nombreProyecto,'/Procesadas'),'PRI');  
+
+
+% VOlvemos a cargar los proyectos
+
+nombresProyectos = dir(fullfile('C:/ Agromav IPS'));
+
+numeroProyectos= size(nombresProyectos);
+numeroProyectos=numeroProyectos(1);
+nombresProyectos=char(nombresProyectos.name);
+j=0;
+if numeroProyectos>2
+for i=3:numeroProyectos
+    j=j+1;
+    nombresLista(j,:)=char(nombresProyectos(i,:));
+    
+end
+set(handles.lstProyectosExistentes,'String',nombresLista);
+end
+
+
+end
+guidata(hObject,handles);
+
+
+function edtNombreProyecto_Callback(hObject, eventdata, handles)
+
+guidata(hObject,handles);
+
+
+
+function edtNombreProyecto_CreateFcn(hObject, eventdata, handles)
+
+% Hint: edit controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+function lstProyectosExistentes_Callback(hObject, eventdata, handles)
+
+
+function lstProyectosExistentes_CreateFcn(hObject, eventdata, handles)
+
+% Hint: listbox controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
