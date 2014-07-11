@@ -182,16 +182,16 @@ if isempty(textoIntroducido) || strcmp(textoIntroducido,'Introduzca nombre de pr
 else
 nombreProyecto=textoIntroducido;
 mkdir('C:/ Agromav IPS', nombreProyecto);   
-mkdir(strcat('C:/ Agromav IPS/',nombreProyecto),'Tiffs Multipage');   
-mkdir(strcat('C:/ Agromav IPS/',nombreProyecto),'Tiffs 16 bits para procesar');   
-mkdir(strcat('C:/ Agromav IPS/',nombreProyecto,'/Tiffs 16 bits para procesar'),'6 bandes');
-mkdir(strcat('C:/ Agromav IPS/',nombreProyecto,'/Tiffs 16 bits para procesar'),'Per bandes');    
-mkdir(strcat('C:/ Agromav IPS/',nombreProyecto),'Procesadas');   
-mkdir(strcat('C:/ Agromav IPS/',nombreProyecto,'/Procesadas'),'Multi'); 
-mkdir(strcat('C:/ Agromav IPS/',nombreProyecto,'/Procesadas'),'NDVI'); 
-mkdir(strcat('C:/ Agromav IPS/',nombreProyecto,'/Procesadas'),'DCNI');  
-mkdir(strcat('C:/ Agromav IPS/',nombreProyecto,'/Procesadas'),'TCARI');  
-mkdir(strcat('C:/ Agromav IPS/',nombreProyecto,'/Procesadas'),'PRI');  
+mkdir(strcat('C:/Agromav IPS/',nombreProyecto),'Tiffs Multipage');   
+mkdir(strcat('C:/Agromav IPS/',nombreProyecto),'Tiffs 16 bits para procesar');   
+mkdir(strcat('C:/Agromav IPS/',nombreProyecto,'/Tiffs 16 bits para procesar'),'6 bandes');
+mkdir(strcat('C:/Agromav IPS/',nombreProyecto,'/Tiffs 16 bits para procesar'),'Per bandes');    
+mkdir(strcat('C:/Agromav IPS/',nombreProyecto),'Procesadas');   
+mkdir(strcat('C:/Agromav IPS/',nombreProyecto,'/Procesadas'),'Multi'); 
+mkdir(strcat('C:/Agromav IPS/',nombreProyecto,'/Procesadas'),'NDVI'); 
+mkdir(strcat('C:/Agromav IPS/',nombreProyecto,'/Procesadas'),'DCNI');  
+mkdir(strcat('C:/Agromav IPS/',nombreProyecto,'/Procesadas'),'TCARI');  
+mkdir(strcat('C:/Agromav IPS/',nombreProyecto,'/Procesadas'),'PRI');  
 
 
 % VOlvemos a cargar los proyectos

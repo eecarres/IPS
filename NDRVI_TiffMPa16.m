@@ -303,7 +303,7 @@ for i=1:numImagenes(2)
     
     clear BM B1 B2 B3 B4 B5;
     [~, name_im, ~] = fileparts(char(paths(1,i)));
-    
+    B=strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/6 bandes/',name_im,'.tif')
     tiffFinal= Tiff(strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/6 bandes/',name_im,'.tif'),'w');
             tagstruct.ImageLength = size(imagenFinal,1);
             tagstruct.ImageWidth = size(imagenFinal,2);
