@@ -33,11 +33,10 @@ if nargin==5
     handles.pathProyecto=varargin{1,1};
     handles.indiceProyecto=varargin{1,2};
 else
-    handles.pathProyecto=[];
-    handles.indiceProyecto=1;
+    load ultimoProyecto;
     
 end
-
+save ultimoProyecto;
 % Update handles structure
 guidata(hObject, handles);
 
@@ -142,7 +141,7 @@ for i=1:numImagenes(2)
     
     [~, name_im, ~] = fileparts(char(paths(1,i)));
     
-    tiffBM= Tiff(strcat(handles.pathProyecto,'/Tiffs 16 bits/Per bandes/',name_im,'_0.tif'),'w');
+    tiffBM= Tiff(strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes/',name_im,'_0.tif'),'w');
             tagstruct.ImageLength = size(BM,1);
             tagstruct.ImageWidth = size(BM,2);
             tagstruct.Photometric = Tiff.Photometric.Separated;
@@ -156,7 +155,7 @@ for i=1:numImagenes(2)
             tiffBM.close;
             
             
-        tiffB1= Tiff(strcat(handles.pathProyecto,'Tiffs 16 bits/Per bandes/',name_im,'_1.tif'),'w');
+        tiffB1= Tiff(strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes/',name_im,'_1.tif'),'w');
             tagstruct.ImageLength = size(B1,1);
             tagstruct.ImageWidth = size(B1,2);
             tagstruct.Photometric = Tiff.Photometric.Separated;
@@ -169,7 +168,7 @@ for i=1:numImagenes(2)
             tiffB1.write(B1); 
             tiffB1.close;
             
-        tiffB2= Tiff(strcat(handles.pathProyecto,'Tiffs 16 bits/Per bandes/',name_im,'_2.tif'),'w');
+        tiffB2= Tiff(strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes/',name_im,'_2.tif'),'w');
             tagstruct.ImageLength = size(B2,1);
             tagstruct.ImageWidth = size(B2,2);
             tagstruct.Photometric = Tiff.Photometric.Separated;
@@ -182,7 +181,7 @@ for i=1:numImagenes(2)
             tiffB2.write(B2); 
             tiffB2.close;
             
-            tiffB3= Tiff(strcat(handles.pathProyecto,'Tiffs 16 bits/Per bandes/',name_im,'_3.tif'),'w');
+            tiffB3= Tiff(strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes/',name_im,'_3.tif'),'w');
             tagstruct.ImageLength = size(B3,1);
             tagstruct.ImageWidth = size(B3,2);
             tagstruct.Photometric = Tiff.Photometric.Separated;
@@ -195,7 +194,7 @@ for i=1:numImagenes(2)
             tiffB3.write(B3); 
             tiffB3.close;
             
-            tiffB4= Tiff(strcat(handles.pathProyecto,'Tiffs 16 bits/Per bandes/',name_im,'_4.tif'),'w');
+            tiffB4= Tiff(strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes/',name_im,'_4.tif'),'w');
             tagstruct.ImageLength = size(B4,1);
             tagstruct.ImageWidth = size(B4,2);
             tagstruct.Photometric = Tiff.Photometric.Separated;
@@ -208,7 +207,7 @@ for i=1:numImagenes(2)
             tiffB4.write(B4); 
             tiffB4.close;
             
-            tiffB5= Tiff(strcat(handles.pathProyecto,'Tiffs 16 bits/Per bandes/',name_im,'_5.tif'),'w');
+            tiffB5= Tiff(strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes/',name_im,'_5.tif'),'w');
             tagstruct.ImageLength = size(B5,1);
             tagstruct.ImageWidth = size(B5,2);
             tagstruct.Photometric = Tiff.Photometric.Separated;
@@ -305,7 +304,7 @@ for i=1:numImagenes(2)
     clear BM B1 B2 B3 B4 B5;
     [~, name_im, ~] = fileparts(char(paths(1,i)));
     
-    tiffFinal= Tiff(strcat(handles.pathProyecto,'Tiffs 16 bits/6 bandes/',name_im,'.tif'),'w');
+    tiffFinal= Tiff(strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/6 bandes/',name_im,'.tif'),'w');
             tagstruct.ImageLength = size(imagenFinal,1);
             tagstruct.ImageWidth = size(imagenFinal,2);
             tagstruct.Photometric = Tiff.Photometric.Separated;
