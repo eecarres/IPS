@@ -60,7 +60,7 @@ program_name='AgroMav Image Processing Software';
 set(handles.title,'string',program_name);
 
 
-nombresProyectos = dir(fullfile('C:/ Agromav IPS'));
+nombresProyectos = dir(fullfile('C:/Agromav IPS'));
 
 numeroProyectos= size(nombresProyectos);
 numeroProyectos=numeroProyectos(1);
@@ -196,7 +196,7 @@ mkdir(strcat('C:/Agromav IPS/',nombreProyecto,'/Procesadas'),'PRI');
 
 % VOlvemos a cargar los proyectos
 
-nombresProyectos = dir(fullfile('C:/ Agromav IPS'));
+nombresProyectos = dir(fullfile('C:/Agromav IPS'));
 
 numeroProyectos= size(nombresProyectos);
 numeroProyectos=numeroProyectos(1);

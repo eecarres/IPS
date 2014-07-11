@@ -32,13 +32,15 @@ if nargin==5
     
     handles.pathProyecto=varargin{1,1};
     handles.indiceProyecto=varargin{1,2};
+    save ultimoProyecto;
 else
     load ultimoProyecto;
-    
+ 
+
+  
 end
-save ultimoProyecto;
-% Update handles structure
-guidata(hObject, handles);
+guidata(hObject, handles); 
+
 
 % UIWAIT makes NDRVI_TiffMPa16 wait for user response (see UIRESUME)
 % uiwait(handles.figure1);
@@ -56,7 +58,7 @@ varargout{1} = handles.output;
 
 
 function btnCargaTiffs_Callback(hObject, eventdata, handles)
-[Im_Name,Im_PathName] = uigetfile({'*tif';'*tiff';'*.*'},'Selecciona imagene','MultiSelect', 'on');
+[Im_Name,Im_PathName] = uigetfile({'*tif';'*tiff';'*.*'},'Selecciona imagene',strcat(handles.pathProyecto,'/Tiffs Multipage'),'MultiSelect', 'on');
 set(handles.lstImagenes,'string',Im_Name);
 handles.multiPath=strcat(Im_PathName,Im_Name);
 guidata(hObject, handles);
@@ -303,7 +305,6 @@ for i=1:numImagenes(2)
     
     clear BM B1 B2 B3 B4 B5;
     [~, name_im, ~] = fileparts(char(paths(1,i)));
-    B=strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/6 bandes/',name_im,'.tif')
     tiffFinal= Tiff(strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/6 bandes/',name_im,'.tif'),'w');
             tagstruct.ImageLength = size(imagenFinal,1);
             tagstruct.ImageWidth = size(imagenFinal,2);

@@ -26,7 +26,17 @@ handles.output = hObject;
 %%  Cargamos el nombre del programa
 global program_name;
 set(handles.title,'string',program_name);
-%% Añadimos las funciones de Indices
+%% Gestion proyectos
+
+if nargin==5
+    
+    handles.pathProyecto=varargin{1,1};
+    handles.indiceProyecto=varargin{1,2};
+else
+    load ultimoProyecto;
+    
+end
+save ultimoProyecto;
 
 
 %% Generamos las 6 bandas del programa
@@ -621,7 +631,7 @@ else
             end 
          
           
-           TiffGuardar = Tiff(strcat('Procesadas/Multi/',nombreIm,'ConIndices.tif'),'w');
+           TiffGuardar = Tiff(strcat(handles.pathProyecto,'/Procesadas/Multi/',nombreIm,'ConIndices.tif'),'w');
             tagstruct.ImageLength = size(dataIm,1);
             tagstruct.ImageWidth = size(dataIm,2);
             tagstruct.Photometric = Tiff.Photometric.Separated;
@@ -1623,3 +1633,11 @@ function chkCalibSimple_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of chkCalibSimple
+
+
+% --- Executes on button press in btnVolver.
+function btnVolver_Callback(hObject, eventdata, handles)
+
+close NDRVI_Menu_Multibanda_Single;
+NDRVI_Main(handles.indiceProyecto);
+
