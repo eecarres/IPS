@@ -22,7 +22,7 @@ function varargout = NDRVI_Menu_Multibanda(varargin)
 
 % Edit the above text to modify the response to help NDRVI_Menu_Multibanda
 
-% Last Modified by GUIDE v2.5 09-Jul-2014 16:20:43
+% Last Modified by GUIDE v2.5 11-Jul-2014 15:44:52
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -58,6 +58,18 @@ handles.output = hObject;
 %%  Cargamos el nombre del programa
 global program_name;
 set(handles.title,'string',program_name);
+
+%% Parte gestion proyectos
+
+if nargin==5
+    
+    handles.pathProyecto=varargin{1,1};
+    handles.indiceProyecto=varargin{1,2};
+else
+    load ultimoProyecto;
+    
+end
+save ultimoProyecto;
 %% Añadimos las funciones de Indices
 %clc;
 %matlabpool open 2;
@@ -2548,3 +2560,10 @@ function btnConfig_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 [handles.configActual,handles.bandas]=CambioConfigTetra;
 set(handles.lblConfig,'String',handles.configActual);
+
+
+% --- Executes on button press in btnVolver.
+function btnVolver_Callback(hObject, eventdata, handles)
+
+close NDRVI_TiffMPa16
+NDRVI_Main(handles.indiceProyecto);
