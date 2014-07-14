@@ -73,6 +73,13 @@ try %this statement is necessary if figure is destroyed , then output argument w
 configuraciones=get(handles.popConfig,'String');
  varargout{1}=configuraciones(get(handles.popConfig,'Value'),:);
  varargout{1}=strtrim(varargout{1});
+ 
+ handles.bandas(1)=get(handles.lblMaster,'String');
+  handles.bandas(2)=get(handles.lblB1,'String');
+  handles.bandas(3)=get(handles.lblB2,'String');
+  handles.bandas(4)=get(handles.lblB3,'String');
+  handles.bandas(5)=get(handles.lblB4,'String');
+  handles.bandas(6)=get(handles.lblB5,'String');
  varargout{2}=handles.bandas;
 catch
     varargout{1} = [];
@@ -128,3 +135,4 @@ function btnAceptar_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 uiresume;
+guidata(hObject,handles);

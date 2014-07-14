@@ -32,11 +32,15 @@ if nargin==5
     
     handles.pathProyecto=varargin{1,1};
     handles.indiceProyecto=varargin{1,2};
+    pathProyecto=handles.pathProyecto;
+    indiceProyecto=handles.indiceProyecto;
+    save ('ultimoProyecto','pathProyecto','indiceProyecto');
 else
-    load ultimoProyecto;
-    
+    load ('ultimoProyecto','pathProyecto','indiceProyecto');
+    handles.pathProyecto=pathProyecto;
+    handles.indiceProyecto=indiceProyecto;
 end
-save ultimoProyecto;
+
 
 
 %% Generamos las 6 bandas del programa
@@ -200,7 +204,7 @@ if fueraIm==1
     % bandas con esas coordenadas
 if get(handles.chkCalibSimple,'Value')==1
     %% Calibración Master
-    [Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*.*'},'Selecciona imagen calibración de 9 bandas');
+    [Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*.*'},'Selecciona imagen calibración de 6 bandas',strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/6 bandes'));
     %% Leemos la imagen y nos quedamos solo con el canal que nos interesa (Tiff tiene 3 canales iguales aunque sea monocroma)
     
     ND=uint16(imread(strcat(Im_PathName,Im_Name)));
@@ -285,7 +289,7 @@ else % Si se quiere seleccionar banda por banda
 
 
     % Calibración Master
-    [Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*.*'},'Selecciona imagen de calibración');
+    [Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*.*'},'Selecciona imagen calibración',strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/6 bandes'));;
     % Leemos la imagen y nos quedamos solo con el canal que nos interesa (Tiff tiene 3 canales iguales aunque sea monocroma)
     ND=uint16(imread(strcat(Im_PathName,Im_Name)));
     
@@ -531,6 +535,21 @@ opcion_cmap=[cmap_rgb_g cmap_jet cmap_rb];
 chkProceso=get(handles.chkProceso,'Value');
 chkImagenes=get(handles.chkImagenes,'Value');
 
+%% Iniciamos todas las bandas como un objeto nulo para reconocer si las tenemos en la configuración actual o no;
+
+R450=[];
+R530=[];
+R550=[];
+R570=[];
+R670=[];
+R710=[];
+R720=[];
+R730=[];
+R780=[];
+R800=[];
+
+
+
 
 
 configTetracam=get(handles.lblConfig,'String');
@@ -566,6 +585,32 @@ switch configTetracam
         
 end
 
+%% Sustituimos algunos índices en caso de no existir en la configuración
+
+if isempty(R780)
+    R780=R800;
+end
+
+if isempty(R730)
+    R730=R720;
+end
+
+Bandas=handles.bandas;
+
+fileID = fopen(strcat(handles.pathProyecto,'/Procesadas/Multi/','Informe de postprocesado.txt'),'w');
+fprintf(fileID,'%s \r\n',strcat('Directorio del proyecto: ',handles.pathProyecto));
+fprintf(fileID,'%s \r\n','---------------------------------------------------------------');
+fprintf(fileID,'%s \r\n',['Fecha: ',datestr(now)]);
+fprintf(fileID,'%s \r\n','---------------------------------------------------------------');
+fprintf(fileID,'%s \r\n','Bandas utilizadas para calcular los índices: ');
+fprintf(fileID,'%s \r\n',char(Bandas(1)));
+fprintf(fileID,'%s \r\n',char(Bandas(2)));
+fprintf(fileID,'%s \r\n',char(Bandas(3)));
+fprintf(fileID,'%s \r\n',char(Bandas(4)));
+fprintf(fileID,'%s \r\n',char(Bandas(5)));
+fprintf(fileID,'%s \r\n',char(Bandas(6)));
+fprintf(fileID,'%s \r\n','---------------------------------------------------------------');
+fprintf(fileID,'%s \r\n','Indices calculados (a partir de banda 7) ');
 
 %% Calculo Indices seleccionados
 if get(handles.rdbDentroIm,'Value')==0 && get(handles.rdbFueraIm,'Value')==0
@@ -584,7 +629,7 @@ else
       dataIm=TiffActual.read();
       tamanoIm=size(dataIm);
       numBandas=tamanoIm(3);
-      identificadorIndices=['Indices calculados y banda correspondiente'];
+      
       
          waitbar((i/numImagenes(2)),current_process,['Procesando imagen ',num2str(i),' de ',num2str(numImagenes(2))])
          
@@ -594,7 +639,9 @@ else
           NDVI_Actual=NDVI_Multibanda(R670,R780,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataIm(:,:,R780.id),dataIm(:,:,R670.id));                 
             numBandas=numBandas+1;
              dataIm(:,:,numBandas)=NDVI_Actual*1000;
-            % identificadorIndices=
+                         if i==1
+                        fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': NDVI']);
+                         end
             end    
             
             % Calculamos DCNI si se ha seleccionado la opción
@@ -602,26 +649,39 @@ else
             DCNI_Actual=DCNI_Multibanda(R730,R710,R670,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataIm(:,:,R730.id),dataIm(:,:,R710.id),dataIm(:,:,R670.id));                 
             numBandas=numBandas+1;
             dataIm(:,:,numBandas)=DCNI_Actual*1000;
+                        if i==1
+                        fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': DCNI']);
+                         end
             end  
             
-            % Calculamos DCNI si se ha seleccionado la opción
+            % Calculamos TCARI si se ha seleccionado la opción
             if get(handles.chkTCARI,'Value')==1              
            TCARI_Actual=TCARI_OSAVI_Multibanda(R710,R670,R550,R780,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataIm(:,:,R710.id),dataIm(:,:,R670.id),dataIm(:,:,R550.id),dataIm(:,:,R780.id));                 
             numBandas=numBandas+1;
             dataIm(:,:,numBandas)=TCARI_Actual*1000;
-            end 
+                           if i==1
+                        fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': TCARI']);
+                           end
+            end
             
-            % Calculamos DCNI si se ha seleccionado la opción
+            % Calculamos PRI si se ha seleccionado la opción
             if get(handles.chkPRI,'Value')==1              
-            %DCNI_Actual=DCNI_Multibanda(R730,R710,R670,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataIm(:,:,R730.id),dataIm(:,:,R710.id),dataIm(:,:,R670.id));                 
-            %numBandas=numBandas+1;
-            %dataIm(:,:,numBandas)=DCNI_Actual*1000;
-            end 
+            PRI_Actual=PRI_Multibanda(R530,R570,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataIm(:,:,R530.id),dataIm(:,:,R570.id));                 
+            numBandas=numBandas+1;
+            dataIm(:,:,numBandas)=PRI_Actual*1000;
+                           if i==1
+                        fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': PRI']);
+                           end
+            end
             
              % Añadimos capa Stretching
             if get(handles.chkStretching,'Value')==1    
+             numBandas=numBandas+1;   
+                               if i==1
+                        fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': Banda con Stretching']);
+                               end
             bandaStretching=get(handles.numStretching,'Value');
-            numBandas=numBandas+1;
+            
             bandaNueva=dataIm(:,:,bandaStretching);
             minBanda=min(min(bandaNueva));
             maxBanda=max(max(bandaNueva));
@@ -652,6 +712,18 @@ else
     close(current_process);
     
     
+    [~,nombrePrimeraFoto, ~] = fileparts(char(handles.MultiPath(1,1)));
+     [~,nombreUltimaFoto, ~] = fileparts(char(handles.MultiPath(1,numImagenes(2))));
+    
+    
+fprintf(fileID,'%s \r\n','---------------------------------------------------------------');
+fprintf(fileID,'%s \r\n','Imágenes procesadas:');
+fprintf(fileID,'%s \r\n',['Inicial:     ',nombrePrimeraFoto]);    
+ fprintf(fileID,'%s \r\n',['                                      Final:     ',nombreUltimaFoto]);     
+ fprintf(fileID,'%s \r\n','---------------------------------------------------------------');  
+  fprintf(fileID,'%s \r\n',['Tiempo estimado de cálculo (segundos): ',num2str(toc)]);
+ fprintf(fileID,'%s \r\n',['Fin del informe de postprocesado, ',datestr(now)]);
+ fclose(fileID);   
     
         
 end
@@ -729,7 +801,7 @@ guidata(hObject, handles);
 % --- Executes on button press in btnExaminar.
 function btnExaminar_Callback(hObject, eventdata, handles)
 
-[Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagenes a procesar','MultiSelect', 'on');
+[Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagenes a procesar',strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/6 bandes'),'MultiSelect', 'on');
 handles.MultiPath=strcat(Im_PathName,Im_Name);
 handles.Master.path=strcat(Im_PathName,Im_Name);
 handles.B1.path=strcat(Im_PathName,Im_Name);
@@ -1613,9 +1685,10 @@ function btnConfig_Callback(hObject, eventdata, handles)
 % hObject    handle to btnConfig (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-[handles.configActual,handles.bandas]=CambioConfigTetra;
+[handles.configActual,handles.bandas]=CambioConfigTETRA;
 
     set(handles.lblConfig,'String',handles.configActual);
+    guidata(hObject,handles);
 
 
 

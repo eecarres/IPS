@@ -167,8 +167,9 @@ function btnTif16_Callback(hObject, eventdata, handles)
 proyectos=get(handles.lstProyectosExistentes,'String');
 indice=get(handles.lstProyectosExistentes,'Value');
 path=strcat('C:/Agromav IPS/',char(proyectos(indice,:)));
-close NDRVI_Main;
 NDRVI_TiffMPa16(path,indice);
+close NDRVI_Main;
+
 
 
 function btnCreaDirectorio_Callback(hObject, eventdata, handles)
@@ -181,7 +182,7 @@ if isempty(textoIntroducido) || strcmp(textoIntroducido,'Introduzca nombre de pr
     return;
 else
 nombreProyecto=textoIntroducido;
-mkdir('C:/ Agromav IPS', nombreProyecto);   
+mkdir('C:/Agromav IPS', nombreProyecto);   
 mkdir(strcat('C:/Agromav IPS/',nombreProyecto),'Tiffs Multipage');   
 mkdir(strcat('C:/Agromav IPS/',nombreProyecto),'Tiffs 16 bits para procesar');   
 mkdir(strcat('C:/Agromav IPS/',nombreProyecto,'/Tiffs 16 bits para procesar'),'6 bandes');

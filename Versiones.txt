@@ -9,3 +9,7 @@
 4.3	-Añadida la opción de stretching de la capa seleccionada
 	-Añadida la función de paso de Tiffs Multipage a Tiffs 16 bits
 	-Añadida la opción de calibrar una banda o todas
+
+4.4	-Añadida la "gestión de proyectos": Creación de sistema de carpetas para cada misión, todas las cargas de archivos ahora apuntan a las carpetas predeterminadas, ya no hay 		necesidad de copiar y pegar el código en cada carpeta para que funcione.
+	-Añadido el índice PRI
+	-Añadido el "informe de post procesado" que muestra las bandas que se han empleado y los indices calculados, así como la fecha y el tiempo de cálculo.

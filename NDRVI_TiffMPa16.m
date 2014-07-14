@@ -32,13 +32,15 @@ if nargin==5
     
     handles.pathProyecto=varargin{1,1};
     handles.indiceProyecto=varargin{1,2};
-    save ultimoProyecto;
+    pathProyecto=handles.pathProyecto;
+    indiceProyecto=handles.indiceProyecto;
+    save ('ultimoProyecto','pathProyecto','indiceProyecto');
 else
-    load ultimoProyecto;
- 
-
-  
+    load ('ultimoProyecto','pathProyecto','indiceProyecto');
+    handles.pathProyecto=pathProyecto;
+    handles.indiceProyecto=indiceProyecto;
 end
+
 guidata(hObject, handles); 
 
 

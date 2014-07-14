@@ -65,11 +65,14 @@ if nargin==5
     
     handles.pathProyecto=varargin{1,1};
     handles.indiceProyecto=varargin{1,2};
+    pathProyecto=handles.pathProyecto;
+    indiceProyecto=handles.indiceProyecto;
+    save ('ultimoProyecto','pathProyecto','indiceProyecto');
 else
-    load ultimoProyecto;
-    
+    load ('ultimoProyecto','pathProyecto','indiceProyecto');
+    handles.pathProyecto=pathProyecto;
+    handles.indiceProyecto=indiceProyecto;
 end
-save ultimoProyecto;
 %% Añadimos las funciones de Indices
 %clc;
 %matlabpool open 2;
@@ -305,7 +308,7 @@ fuera_imagen_value_Master=get(handles.radiobutton_fuera_imagen_Master,'Value');
 % si es 0 es dentro de imagen y 1 es fuera imagen
 if fuera_imagen_value_Master==1
     % Calibración Master
-    [Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*.*'},'Selecciona imagen calibración Master');
+    [Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*.*'},'Selecciona imagen calibración Master',strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes'));
     % Leemos la imagen y nos quedamos solo con el canal que nos interesa (Tiff tiene 3 canales iguales aunque sea monocroma)
     ND=double(imread(strcat(Im_PathName,Im_Name)));
     ND_Master=ND(:,:,1);
@@ -352,7 +355,7 @@ function uipanel_calibracion_1_SelectionChangeFcn(hObject, eventdata, handles)
 fuera_imagen_value_B1=get(handles.radiobutton_fuera_imagen_1,'Value');
 if fuera_imagen_value_B1==1
     %Calibración B1
-    [Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagen calibración Banda 1');
+    [Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagen calibración Banda 1',strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes'));
     ND=double(imread(strcat(Im_PathName,Im_Name)));
     ND_B1=ND(:,:,1);
     minimo1=min(min(ND_B1));
@@ -392,7 +395,7 @@ function uipanel_calibracion_2_SelectionChangeFcn(hObject, eventdata, handles)
 fuera_imagen_value_B2=get(handles.radiobutton_fuera_imagen_2,'Value');
 if fuera_imagen_value_B2==1
     %Calibración B2
-    [Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagen calibración Banda 2');
+    [Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagen calibración Banda 2',strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes'));
     ND=double(imread(strcat(Im_PathName,Im_Name)));
     ND_B2=ND(:,:,1);
     minimo1=min(min(ND_B2));
@@ -430,7 +433,7 @@ function uipanel_calibracion_3_SelectionChangeFcn(hObject, eventdata, handles)
 fuera_imagen_value_B3=get(handles.radiobutton_fuera_imagen_3,'Value');
 if fuera_imagen_value_B3==1
     %Calibración B3
-    [Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagen calibración Banda 3');
+    [Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagen calibración Banda 3',strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes'));
     ND=double(imread(strcat(Im_PathName,Im_Name)));
     ND_B3=ND(:,:,1);
     minimo1=min(min(ND_B3));
@@ -469,7 +472,7 @@ function uipanel_calibracion_4_SelectionChangeFcn(hObject, eventdata, handles)
 fuera_imagen_value_B4=get(handles.radiobutton_fuera_imagen_4,'Value');
 if fuera_imagen_value_B4==1
     %Calibración B2
-    [Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagen calibración Banda 4');
+    [Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagen calibración Banda 4',strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes'));
     ND=double(imread(strcat(Im_PathName,Im_Name)));
     ND_B4=ND(:,:,1);
     minimo1=min(min(ND_B4));
@@ -507,7 +510,7 @@ function uipanel_calibracion_5_SelectionChangeFcn(hObject, eventdata, handles)
 fuera_imagen_value_B5=get(handles.radiobutton_fuera_imagen_5,'Value');
 if fuera_imagen_value_B5==1
     %Calibración B5
-    [Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagen calibración Banda 5');
+    [Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagen calibración Banda 5',strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes'));
     ND=double(imread(strcat(Im_PathName,Im_Name)));
     ND_B5=ND(:,:,1);
     minimo1=min(min(ND_B5));
@@ -787,7 +790,7 @@ function pushbutton_examinar_master_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-[Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagenes a procesar (Master)','MultiSelect', 'on');
+[Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagenes a procesar (Master)',strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes'),'MultiSelect', 'on');
 handles.Master.path=strcat(Im_PathName,Im_Name);
 set(handles.text_examinar_Master,'String',handles.Master.path);
 clear Im_Name Im_PathName
@@ -800,7 +803,7 @@ function pushbutton_examinar_1_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-[Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagenes a procesar (Banda 1)','MultiSelect', 'on');
+[Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagenes a procesar (Banda 1)',strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes'),'MultiSelect', 'on');
 handles.B1.path=strcat(Im_PathName,Im_Name);
 set(handles.text_examinar_1,'String',handles.B1.path);
 clear Im_Name Im_PathName
@@ -812,7 +815,7 @@ function pushbutton_examinar_2_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_examinar_2 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-[Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagenes a procesar (Banda 2)','MultiSelect', 'on');
+[Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagenes a procesar (Banda 2)',strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes'),'MultiSelect', 'on');
 handles.B2.path=strcat(Im_PathName,Im_Name);
 set(handles.text_examinar_2,'String',handles.B2.path);
 clear Im_Name Im_PathName
@@ -823,7 +826,7 @@ function pushbutton_examinar_3_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_examinar_3 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-[Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagenes a procesar (Banda 3)','MultiSelect', 'on');
+[Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagenes a procesar (Banda 3)',strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes'),'MultiSelect', 'on');
 handles.B3.path=strcat(Im_PathName,Im_Name);
 set(handles.text_examinar_3,'String',handles.B3.path);
 clear Im_Name Im_PathName
@@ -834,7 +837,7 @@ function pushbutton_examinar_4_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_examinar_4 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-[Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagenes a procesar (Banda 4)','MultiSelect', 'on');
+[Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagenes a procesar (Banda 4)',strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes'),'MultiSelect', 'on');
 handles.B4.path=strcat(Im_PathName,Im_Name);
 set(handles.text_examinar_4,'String',handles.B4.path);
 clear Im_Name Im_PathName
@@ -845,7 +848,7 @@ function pushbutton_examinar_5_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton_examinar_5 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-[Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagenes a procesar (Banda 5)','MultiSelect', 'on');
+[Im_Name,Im_PathName] = uigetfile({'*tif';'*.jpg';'*.jpeg';'*tiff';'*.*'},'Selecciona imagenes a procesar (Banda 5)',strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes'),'MultiSelect', 'on');
 handles.B5.path=strcat(Im_PathName,Im_Name);
 set(handles.text_examinar_5,'String',handles.B5.path);
 clear Im_Name Im_PathName
@@ -2558,12 +2561,12 @@ function btnConfig_Callback(hObject, eventdata, handles)
 % hObject    handle to btnConfig (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
-[handles.configActual,handles.bandas]=CambioConfigTetra;
+[handles.configActual,handles.bandas]=CambioConfigTETRA;
 set(handles.lblConfig,'String',handles.configActual);
 
 
 % --- Executes on button press in btnVolver.
 function btnVolver_Callback(hObject, eventdata, handles)
 
-close NDRVI_TiffMPa16
+close NDRVI_Menu_Multibanda
 NDRVI_Main(handles.indiceProyecto);
