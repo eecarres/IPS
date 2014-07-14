@@ -602,7 +602,9 @@ fprintf(fileID,'%s \r\n',strcat('Directorio del proyecto: ',handles.pathProyecto
 fprintf(fileID,'%s \r\n','---------------------------------------------------------------');
 fprintf(fileID,'%s \r\n',['Fecha: ',datestr(now)]);
 fprintf(fileID,'%s \r\n','---------------------------------------------------------------');
-fprintf(fileID,'%s \r\n','Bandas utilizadas para calcular los índices: ');
+fprintf(fileID,'%s \r\n',['Configuración de los filtros TetraCam: ',configTetracam]);
+fprintf(fileID,'%s \r\n','---------------------------------------------------------------');
+fprintf(fileID,'%s \r\n','Mapa de la configuración ( de máster a banda 5):');
 fprintf(fileID,'%s \r\n',char(Bandas(1)));
 fprintf(fileID,'%s \r\n',char(Bandas(2)));
 fprintf(fileID,'%s \r\n',char(Bandas(3)));
@@ -668,7 +670,7 @@ else
             if get(handles.chkPRI,'Value')==1              
             PRI_Actual=PRI_Multibanda(R530,R570,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataIm(:,:,R530.id),dataIm(:,:,R570.id));                 
             numBandas=numBandas+1;
-            dataIm(:,:,numBandas)=PRI_Actual*1000;
+            dataIm(:,:,numBandas)=(PRI_Actual+1)*1000;
                            if i==1
                         fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': PRI']);
                            end
