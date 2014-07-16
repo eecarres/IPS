@@ -22,7 +22,7 @@ function varargout = NDRVI_Main(varargin)
 
 % Edit the above text to modify the response to help NDRVI_Main
 
-% Last Modified by GUIDE v2.5 11-Jul-2014 11:31:17
+% Last Modified by GUIDE v2.5 16-Jul-2014 10:13:37
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -242,3 +242,8 @@ function lstProyectosExistentes_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+
+function btnPW2_Callback(hObject, eventdata, handles)
+system('C:\Program Files\Tetracam\PixelWrench2\PixelWrench2.exe');
+guidata(hObject,handles);

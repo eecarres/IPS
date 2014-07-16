@@ -612,7 +612,7 @@ fprintf(fileID,'%s \r\n',char(Bandas(4)));
 fprintf(fileID,'%s \r\n',char(Bandas(5)));
 fprintf(fileID,'%s \r\n',char(Bandas(6)));
 fprintf(fileID,'%s \r\n','---------------------------------------------------------------');
-fprintf(fileID,'%s \r\n','Indices calculados (a partir de banda 7) ');
+fprintf(fileID,'%s \r\n','Indices calculados: ');
 
 %% Calculo Indices seleccionados
 if get(handles.rdbDentroIm,'Value')==0 && get(handles.rdbFueraIm,'Value')==0
@@ -628,74 +628,104 @@ else
         
       TiffActual = Tiff(char(handles.MultiPath(1,i)),'r+');
       [~,nombreIm, ~] = fileparts(char(handles.MultiPath(1,i)));
-      dataIm=TiffActual.read();
-      tamanoIm=size(dataIm);
+      dataImOriginal=TiffActual.read();
+      tamanoIm=size(dataImOriginal);
       numBandas=tamanoIm(3);
       
       
          waitbar((i/numImagenes(2)),current_process,['Procesando imagen ',num2str(i),' de ',num2str(numImagenes(2))])
          
-         % Calculamos NDVI si se ha seleccionado la opción
-            if get(handles.chkNDVI,'Value')==1   
-            
-          NDVI_Actual=NDVI_Multibanda(R670,R780,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataIm(:,:,R780.id),dataIm(:,:,R670.id));                 
-            numBandas=numBandas+1;
-             dataIm(:,:,numBandas)=NDVI_Actual*1000;
-                         if i==1
-                        fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': NDVI']);
-                         end
-            end    
-            
-            % Calculamos DCNI si se ha seleccionado la opción
-            if get(handles.chkDCNI,'Value')==1              
-            DCNI_Actual=DCNI_Multibanda(R730,R710,R670,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataIm(:,:,R730.id),dataIm(:,:,R710.id),dataIm(:,:,R670.id));                 
-            numBandas=numBandas+1;
-            dataIm(:,:,numBandas)=DCNI_Actual*1000;
-                        if i==1
-                        fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': DCNI']);
-                         end
-            end  
-            
-            % Calculamos TCARI si se ha seleccionado la opción
-            if get(handles.chkTCARI,'Value')==1              
-           TCARI_Actual=TCARI_OSAVI_Multibanda(R710,R670,R550,R780,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataIm(:,:,R710.id),dataIm(:,:,R670.id),dataIm(:,:,R550.id),dataIm(:,:,R780.id));                 
-            numBandas=numBandas+1;
-            dataIm(:,:,numBandas)=TCARI_Actual*1000;
-                           if i==1
-                        fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': TCARI']);
-                           end
-            end
-            
-            % Calculamos PRI si se ha seleccionado la opción
-            if get(handles.chkPRI,'Value')==1              
-            PRI_Actual=PRI_Multibanda(R530,R570,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataIm(:,:,R530.id),dataIm(:,:,R570.id));                 
-            numBandas=numBandas+1;
-            dataIm(:,:,numBandas)=(PRI_Actual+1)*1000;
-                           if i==1
-                        fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': PRI']);
-                           end
-            end
-            
-             % Añadimos capa Stretching
+         % Añadimos capa Stretching
             if get(handles.chkStretching,'Value')==1    
              numBandas=numBandas+1;   
                                if i==1
-                        fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': Banda con Stretching']);
+                        fprintf(fileID,'%s \r\n',['Banda número',' ','1',': Banda con Stretching']);
                                end
             bandaStretching=get(handles.numStretching,'Value');
             
-            bandaNueva=dataIm(:,:,bandaStretching);
+            bandaNueva=dataImOriginal(:,:,bandaStretching);
             minBanda=min(min(bandaNueva));
             maxBanda=max(max(bandaNueva));
             bandaNueva=bandaNueva-minBanda;
             bandaNueva=((2^16)/(maxBanda-minBanda))*bandaNueva;
-            dataIm(:,:,numBandas)=bandaNueva;
+            dataImProcesada(:,:,1)=bandaNueva;
+            dataImProcesada(:,:,2)=dataImOriginal(:,:,1);
+            dataImProcesada(:,:,3)=dataImOriginal(:,:,2);
+            dataImProcesada(:,:,4)=dataImOriginal(:,:,3);
+            dataImProcesada(:,:,5)=dataImOriginal(:,:,4);
+            dataImProcesada(:,:,6)=dataImOriginal(:,:,5);
+            dataImProcesada(:,:,7)=dataImOriginal(:,:,6);
             end 
+         
+         
+         
+         
+         % Calculamos NDVI si se ha seleccionado la opción
+            if get(handles.chkNDVI,'Value')==1   
+                                 if isempty(R670) || isempty(R780) 
+                                    msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice NDVI');
+                                    return;
+                                else
+                                          NDVI_Actual=NDVI_Multibanda(R670,R780,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataImOriginal(:,:,R780.id),dataImOriginal(:,:,R670.id));                 
+                                            numBandas=numBandas+1;
+                                             dataImProcesada(:,:,numBandas)=NDVI_Actual*1000;
+                                                         if i==1
+                                                        fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': NDVI']);
+                                                         end
+                                 end
+            end    
+            
+            % Calculamos DCNI si se ha seleccionado la opción
+            if get(handles.chkDCNI,'Value')==1              
+                                    if isempty(R730) || isempty(R710) || isempty(R670)
+                                                        msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice DCNI');
+                                                        return;
+                                    else
+                                        DCNI_Actual=DCNI_Multibanda(R730,R710,R670,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataImOriginal(:,:,R730.id),dataImOriginal(:,:,R710.id),dataImOriginal(:,:,R670.id));                 
+                                        numBandas=numBandas+1;
+                                        dataImProcesada(:,:,numBandas)=DCNI_Actual*1000;
+                                                    if i==1
+                                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': DCNI']);
+                                                    end
+                                    end
+            end  
+            
+            % Calculamos TCARI si se ha seleccionado la opción
+            if get(handles.chkTCARI,'Value')==1     
+                                if isempty(R710) || isempty(R670) || isempty(R550) || isempty(R780)
+                                    msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice TCARI');
+                                    return;
+                                else
+                                       TCARI_Actual=TCARI_OSAVI_Multibanda(R710,R670,R550,R780,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataImOriginal(:,:,R710.id),dataImOriginal(:,:,R670.id),dataImOriginal(:,:,R550.id),dataImOriginal(:,:,R780.id));                 
+                                        numBandas=numBandas+1;
+                                        dataImProcesada(:,:,numBandas)=TCARI_Actual*1000;
+                                                       if i==1
+                                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': TCARI']);
+                                                       end
+                                end
+            end
+            
+            % Calculamos PRI si se ha seleccionado la opción
+            if get(handles.chkPRI,'Value')==1       
+                if isempty(R530) || isempty(R570)
+                    msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice PRI');
+                    return;
+                else
+                        PRI_Actual=PRI_Multibanda(R530,R570,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataImOriginal(:,:,R530.id),dataImOriginal(:,:,R570.id));                 
+                        numBandas=numBandas+1;
+                        dataImProcesada(:,:,numBandas)=(PRI_Actual+1)*1000;
+                                       if i==1
+                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': PRI']);
+                                       end
+                end
+            end
+            
+             
          
           
            TiffGuardar = Tiff(strcat(handles.pathProyecto,'/Procesadas/Multi/',nombreIm,'ConIndices.tif'),'w');
-            tagstruct.ImageLength = size(dataIm,1);
-            tagstruct.ImageWidth = size(dataIm,2);
+            tagstruct.ImageLength = size(dataImOriginal,1);
+            tagstruct.ImageWidth = size(dataImOriginal,2);
             tagstruct.Photometric = Tiff.Photometric.Separated;
             tagstruct.BitsPerSample = 16;
             tagstruct.SamplesPerPixel =numBandas;
@@ -704,10 +734,11 @@ else
             tagstruct.PlanarConfiguration = Tiff.PlanarConfiguration.Separate;
             tagstruct.Software = 'MATLAB';
             TiffGuardar.setTag(tagstruct);
-            TiffGuardar.write(dataIm); 
+            TiffGuardar.write(dataImProcesada); 
             TiffGuardar.close;
 
           TiffActual.close;
+          clear dataImProcesada dataImOriginal;
           toc
      end
     toc
