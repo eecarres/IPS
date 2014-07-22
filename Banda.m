@@ -12,7 +12,8 @@ classdef Banda
         X1
         dentroIm
         fueraIm
-        id
+        id % Orden en la configuración
+        banda % Banda espectral de la que se trata
     end
     
     methods

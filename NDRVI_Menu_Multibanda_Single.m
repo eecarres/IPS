@@ -558,26 +558,67 @@ switch configTetracam
     
     case 'Estandar (ilerdair)'
                    R780=handles.Master;
+                   R780.banda=780;
+                   
                    R450=handles.B1;
+                   R450.banda=450;
+                   
                    R550=handles.B2;
+                   R550.banda=550;
+                   
                    R670=handles.B3;
+                   R670.banda=670;
+                   
                    R710=handles.B4;
+                   R710.banda=710;
+                   
                    R730=handles.B5;
+                   R730.banda=730;
                     
+                   vectorOrden=[2 3 4 5 6 1];
+                   
     case 'Config 1 Algerri'
                    R800=handles.Master;
+                   R800.banda=800;
+                   
                    R450=handles.B1;
+                   R450.banda=450;
+                   
                    R550=handles.B2;
+                   R550.banda=550;
+                   
                    R670=handles.B3;
+                   R670.banda=670;
+                   
                    R710=handles.B4;
+                   R710.banda=710;
+                   
                    R720=handles.B5;
+                   R720.banda=720;
+                   
+                   vectorOrden=[2 3 4 5 6 1];
+                   
     case 'Config 2 Algerri'
                    R780=handles.Master;
+                   R780.banda=780;
+                   
                    R530=handles.B1;
+                   R530.banda=530;
+                   
                    R570=handles.B2;
+                   R570.banda=570;
+                   
                    R670=handles.B3;
+                   R670.banda=670;
+                   
                    R710=handles.B4;
+                   R710.banda=710;
+                   
                    R730=handles.B5;  
+                   R730.banda=730;
+                   
+                   vectorOrden=[2 3 4 5 6 1];
+                   
     otherwise
         
                      msgbox('Has seleccionado una configuración incorrecta','Cambio de configuración TetraCam');
@@ -596,6 +637,11 @@ if isempty(R730)
 end
 
 Bandas=handles.bandas;
+
+%% Ordenamos las bandas
+
+
+
 
 fileID = fopen(strcat(handles.pathProyecto,'/Procesadas/Multi/','Informe de postprocesado.txt'),'w');
 fprintf(fileID,'%s \r\n',strcat('Directorio del proyecto: ',handles.pathProyecto));
@@ -636,7 +682,7 @@ else
          waitbar((i/numImagenes(2)),current_process,['Procesando imagen ',num2str(i),' de ',num2str(numImagenes(2))])
          
          % Añadimos capa Stretching
-            if get(handles.chkStretching,'Value')==1    
+            if get(handles.chkComprobacion,'Value')==1    
              numBandas=numBandas+1;   
                                if i==1
                         fprintf(fileID,'%s \r\n',['Banda número',' ','1',': Banda con Stretching']);
@@ -649,12 +695,12 @@ else
             bandaNueva=bandaNueva-minBanda;
             bandaNueva=((2^16)/(maxBanda-minBanda))*bandaNueva;
             dataImProcesada(:,:,1)=bandaNueva;
-            dataImProcesada(:,:,2)=dataImOriginal(:,:,1);
-            dataImProcesada(:,:,3)=dataImOriginal(:,:,2);
-            dataImProcesada(:,:,4)=dataImOriginal(:,:,3);
-            dataImProcesada(:,:,5)=dataImOriginal(:,:,4);
-            dataImProcesada(:,:,6)=dataImOriginal(:,:,5);
-            dataImProcesada(:,:,7)=dataImOriginal(:,:,6);
+            dataImProcesada(:,:,2)=dataImOriginal(:,:,vectorOrden(1));
+            dataImProcesada(:,:,3)=dataImOriginal(:,:,vectorOrden(2));
+            dataImProcesada(:,:,4)=dataImOriginal(:,:,vectorOrden(3));
+            dataImProcesada(:,:,5)=dataImOriginal(:,:,vectorOrden(4));
+            dataImProcesada(:,:,6)=dataImOriginal(:,:,vectorOrden(5));
+            dataImProcesada(:,:,7)=dataImOriginal(:,:,vectorOrden(6));
             end 
          
          
@@ -1692,7 +1738,7 @@ function chkNADA_Callback(hObject, eventdata, handles)
 % Hint: get(hObject,'Value') returns toggle state of chkNADA
 
 
-function chkStretching_Callback(hObject, eventdata, handles)
+function chkComprobacion_Callback(hObject, eventdata, handles)
 
 
 

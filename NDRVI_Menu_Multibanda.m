@@ -1040,6 +1040,19 @@ chkImagenes=get(handles.chkImagenes,'Value');
 
 %% Se relacionan las bandas espectrales reales( R780, R670, etc...) con las de nuestra cámara(master, b1, etc..)
 %Hay que redireccionar los canales a las bandas de la tetracam
+R450=[];
+R530=[];
+R550=[];
+R570=[];
+R670=[];
+R710=[];
+R720=[];
+R730=[];
+R780=[];
+R800=[];
+
+
+
 
 
 configTetracam=get(handles.lblConfig,'String');
@@ -1048,27 +1061,67 @@ switch configTetracam
     
     case 'Estandar (ilerdair)'
                    R780=handles.Master;
+                   R780.banda=780;
+                   
                    R450=handles.B1;
+                   R450.banda=450;
+                   
                    R550=handles.B2;
+                   R550.banda=550;
+                   
                    R670=handles.B3;
+                   R670.banda=670;
+                   
                    R710=handles.B4;
+                   R710.banda=710;
+                   
                    R730=handles.B5;
+                   R730.banda=730;
                     
-    case 'Vol 1 Algerri'
+                   vectorOrden=[2 3 4 5 6 1];
+                   
+    case 'Config 1 Algerri'
                    R800=handles.Master;
+                   R800.banda=800;
+                   
                    R450=handles.B1;
+                   R450.banda=450;
+                   
                    R550=handles.B2;
+                   R550.banda=550;
+                   
                    R670=handles.B3;
+                   R670.banda=670;
+                   
                    R710=handles.B4;
+                   R710.banda=710;
+                   
                    R720=handles.B5;
-    case 'Vol 2 Algerri'
+                   R720.banda=720;
+                   
+                   vectorOrden=[2 3 4 5 6 1];
+                   
+    case 'Config 2 Algerri'
                    R780=handles.Master;
+                   R780.banda=780;
+                   
                    R530=handles.B1;
+                   R530.banda=530;
+                   
                    R570=handles.B2;
+                   R570.banda=570;
+                   
                    R670=handles.B3;
+                   R670.banda=670;
+                   
                    R710=handles.B4;
-                   R730=handles.B5; 
-    
+                   R710.banda=710;
+                   
+                   R730=handles.B5;  
+                   R730.banda=730;
+                   
+                   vectorOrden=[2 3 4 5 6 1];
+                   
     otherwise
         
                      msgbox('Has seleccionado una configuración incorrecta','Cambio de configuración TetraCam');

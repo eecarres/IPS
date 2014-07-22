@@ -68,7 +68,7 @@ switch valores_Banda
                  case 2 %% Si seleccionamos la no interpolación GRIS
 
                yi(1)=reflectancias_Banda(1);yi(2)=reflectancias_Banda(2);
-               xi(1)=x1_Banda(1);xi(2)=x1_Banda(3);
+               xi(1)=x1_Banda(1);xi(2)=x1_Banda(2);
                 
                 case 3
     
@@ -118,16 +118,30 @@ ima     = ND_Banda* a + b;
 [M1,N1] = size(X1);
 [M2,N2] = size(X2);
 
+if isempty(M1)
+    
+else
+
 for i= 1 : M1
     
     ima(X1(i), Y1(i))=1;
     
 end
+% msgbox (['Hay reflectancias por encima de uno en la imagen',num2str(iteracion)]);
+M1
+end
 
+
+if isempty(M2)
+    
+else
 for z= 1 : M2
     
     ima(X2(z), Y2(z))=0;
-    
+
+end
+% msgbox (['Hay reflectancias por debajo de cero en la imagen',num2str(iteracion)]);
+M2
 end
 
 %% Mostrar Lk si se ha pedido
