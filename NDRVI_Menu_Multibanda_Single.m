@@ -29,14 +29,18 @@ set(handles.title,'string',program_name);
 %% Gestion proyectos
 
 if nargin==5
-    
+    load ('ultimoProyecto','referenciasCalibracion');
     handles.pathProyecto=varargin{1,1};
     handles.indiceProyecto=varargin{1,2};
     pathProyecto=handles.pathProyecto;
     indiceProyecto=handles.indiceProyecto;
-    save ('ultimoProyecto','pathProyecto','indiceProyecto');
+    try
+    save ('ultimoProyecto','pathProyecto','indiceProyecto','referenciasCalibracion');
+    catch
+       save ('ultimoProyecto','pathProyecto','indiceProyecto'); 
+    end
 else
-    load ('ultimoProyecto','pathProyecto','indiceProyecto');
+    load ('ultimoProyecto','pathProyecto','indiceProyecto','referenciasCalibracion');
     handles.pathProyecto=pathProyecto;
     handles.indiceProyecto=indiceProyecto;
 end
@@ -147,6 +151,32 @@ handles.opcionIndice=1;
 
 %% Establecemos los valores de las reflectancias de cada banda
 
+try
+    set(handles.edit_ref_blanco_master,'String',num2str(referenciasCalibracion(1)));
+set(handles.edit_ref_gris_master,'String',num2str(referenciasCalibracion(2)));
+set(handles.edit_ref_negro_master,'String',num2str(referenciasCalibracion(3)));
+
+set(handles.edit_ref_blanco_1,'String',num2str(referenciasCalibracion(4)));
+set(handles.edit_ref_gris_1,'String',num2str(referenciasCalibracion(5)));
+set(handles.edit_ref_negro_1,'String',num2str(referenciasCalibracion(6)));
+
+set(handles.edit_ref_blanco_2,'String',num2str(referenciasCalibracion(7)));
+set(handles.edit_ref_gris_2,'String',num2str(referenciasCalibracion(8)));
+set(handles.edit_ref_negro_2,'String',num2str(referenciasCalibracion(9)));
+
+set(handles.edit_ref_blanco_3,'String',num2str(referenciasCalibracion(10)));
+set(handles.edit_ref_gris_3,'String',num2str(referenciasCalibracion(11)));
+set(handles.edit_ref_negro_3,'String',num2str(referenciasCalibracion(12)));
+
+set(handles.edit_ref_blanco_4,'String',num2str(referenciasCalibracion(13)));
+set(handles.edit_ref_gris_4,'String',num2str(referenciasCalibracion(14)));
+set(handles.edit_ref_negro_4,'String',num2str(referenciasCalibracion(15)));
+
+set(handles.edit_ref_blanco_5,'String',num2str(referenciasCalibracion(16)));
+set(handles.edit_ref_gris_5,'String',num2str(referenciasCalibracion(17)));
+set(handles.edit_ref_negro_5,'String',num2str(referenciasCalibracion(18)));
+
+catch
 set(handles.edit_ref_blanco_master,'String',num2str(0.9));
 set(handles.edit_ref_gris_master,'String',num2str(0.18));
 set(handles.edit_ref_negro_master,'String',num2str(0.05));
@@ -171,7 +201,7 @@ set(handles.edit_ref_blanco_5,'String',num2str(0.9));
 set(handles.edit_ref_gris_5,'String',num2str(0.18));
 set(handles.edit_ref_negro_5,'String',num2str(0.05));
 
-
+end
 %% Exactamente no se a que se refiere
 handles.rgb_g_limits(1)=0; handles.rgb_g_limits(2)=handles.rgb_g_limits(1);
 handles.rgb_g_limits(3)=handles.rgb_g_limits(1); handles.rgb_g_limits(4)=handles.rgb_g_limits(1);
@@ -548,8 +578,10 @@ R730=[];
 R780=[];
 R800=[];
 
-
-
+referenciasCalibracion=[handles.Master.reflectancias handles.B1.reflectancias handles.B2.reflectancias handles.B3.reflectancias handles.B4.reflectancias handles.B5.reflectancias];
+pathProyecto=handles.pathProyecto;
+indiceProyecto=handles.indiceProyecto;
+save ('ultimoProyecto', 'referenciasCalibracion', 'pathProyecto','indiceProyecto');
 
 
 configTetracam=get(handles.lblConfig,'String');
@@ -576,6 +608,7 @@ switch configTetracam
                    R730.banda=730;
                     
                    vectorOrden=[2 3 4 5 6 1];
+                   bandasProyecto=[R450 R550 R670 R710 R730 R780];
                    
     case 'Config 1 Algerri'
                    R800=handles.Master;
@@ -597,6 +630,7 @@ switch configTetracam
                    R720.banda=720;
                    
                    vectorOrden=[2 3 4 5 6 1];
+                   bandasProyecto=[R450 R550 R670 R710 R720 R800];
                    
     case 'Config 2 Algerri'
                    R780=handles.Master;
@@ -618,6 +652,7 @@ switch configTetracam
                    R730.banda=730;
                    
                    vectorOrden=[2 3 4 5 6 1];
+                   bandasProyecto=[R530 R570 R670 R710 R730 R780];
                    
     otherwise
         
@@ -638,11 +673,6 @@ end
 
 Bandas=handles.bandas;
 
-%% Ordenamos las bandas
-
-
-
-
 fileID = fopen(strcat(handles.pathProyecto,'/Procesadas/Multi/','Informe de postprocesado.txt'),'w');
 fprintf(fileID,'%s \r\n',strcat('Directorio del proyecto: ',handles.pathProyecto));
 fprintf(fileID,'%s \r\n','---------------------------------------------------------------');
@@ -658,6 +688,32 @@ fprintf(fileID,'%s \r\n',char(Bandas(4)));
 fprintf(fileID,'%s \r\n',char(Bandas(5)));
 fprintf(fileID,'%s \r\n',char(Bandas(6)));
 fprintf(fileID,'%s \r\n','---------------------------------------------------------------');
+fprintf(fileID,'%s \r\n','Datos de calibración de cada banda [reflectancia / valor digital]');
+fprintf(fileID,'%s \r\n',['Banda Máster (',char(Bandas(1)),'):']);
+fprintf(fileID,'%s \r\n',['         Blanco:',num2str(handles.Master.reflectancias(1)),' / ',num2str(handles.Master.X1(1))]);
+fprintf(fileID,'%s \r\n',['         Gris:',num2str(handles.Master.reflectancias(2)),' / ',num2str(handles.Master.X1(2))]);
+fprintf(fileID,'%s \r\n',['         Negro:',num2str(handles.Master.reflectancias(3)),' / ',num2str(handles.Master.X1(3))]);
+fprintf(fileID,'%s \r\n',['Banda 1 (',char(Bandas(2)),'):']);
+fprintf(fileID,'%s \r\n',['         Blanco:',num2str(handles.B1.reflectancias(1)),' / ',num2str(handles.B1.X1(1))]);
+fprintf(fileID,'%s \r\n',['         Gris:',num2str(handles.B1.reflectancias(2)),' / ',num2str(handles.B1.X1(2))]);
+fprintf(fileID,'%s \r\n',['         Negro:',num2str(handles.B1.reflectancias(3)),' / ',num2str(handles.B1.X1(3))]);
+fprintf(fileID,'%s \r\n',['Banda 2 (',char(Bandas(3)),'):']);
+fprintf(fileID,'%s \r\n',['         Blanco:',num2str(handles.B2.reflectancias(1)),' / ',num2str(handles.B2.X1(1))]);
+fprintf(fileID,'%s \r\n',['         Gris:',num2str(handles.B2.reflectancias(2)),' / ',num2str(handles.B2.X1(2))]);
+fprintf(fileID,'%s \r\n',['         Negro:',num2str(handles.B2.reflectancias(3)),' / ',num2str(handles.B2.X1(3))]);
+fprintf(fileID,'%s \r\n',['Banda 3 (',char(Bandas(4)),'):']);
+fprintf(fileID,'%s \r\n',['         Blanco:',num2str(handles.B3.reflectancias(1)),' / ',num2str(handles.B3.X1(1))]);
+fprintf(fileID,'%s \r\n',['         Gris:',num2str(handles.B3.reflectancias(2)),' / ',num2str(handles.B3.X1(2))]);
+fprintf(fileID,'%s \r\n',['         Negro:',num2str(handles.B3.reflectancias(3)),' / ',num2str(handles.B3.X1(3))]);
+fprintf(fileID,'%s \r\n',['Banda 4 (',char(Bandas(5)),'):']);
+fprintf(fileID,'%s \r\n',['         Blanco:',num2str(handles.B4.reflectancias(1)),' / ',num2str(handles.B4.X1(1))]);
+fprintf(fileID,'%s \r\n',['         Gris:',num2str(handles.B4.reflectancias(2)),' / ',num2str(handles.B4.X1(2))]);
+fprintf(fileID,'%s \r\n',['         Negro:',num2str(handles.B4.reflectancias(3)),' / ',num2str(handles.B4.X1(3))]);
+fprintf(fileID,'%s \r\n',['Banda 5 (',char(Bandas(6)),'):']);
+fprintf(fileID,'%s \r\n',['         Blanco:',num2str(handles.B5.reflectancias(1)),' / ',num2str(handles.B5.X1(1))]);
+fprintf(fileID,'%s \r\n',['         Gris:',num2str(handles.B5.reflectancias(2)),' / ',num2str(handles.B5.X1(2))]);
+fprintf(fileID,'%s \r\n',['         Negro:',num2str(handles.B5.reflectancias(3)),' / ',num2str(handles.B5.X1(3))]);
+fprintf(fileID,'%s \r\n','---------------------------------------------------------------');
 fprintf(fileID,'%s \r\n','Indices calculados: ');
 
 %% Calculo Indices seleccionados
@@ -669,6 +725,7 @@ else
     %% Se cargan los tiff de uno en uno y se llama a las funciones
     numImagenes=size(handles.MultiPath);
     current_process=waitbar(0,'Procesando imágenes...');
+    
     tic 
     for i=1:numImagenes(2) 
         
@@ -678,30 +735,65 @@ else
       tamanoIm=size(dataImOriginal);
       numBandas=tamanoIm(3);
       
+     % Pasar todas las bandas a LK y guardar sus LK's;
+     
+      for j=1:numel(bandasProyecto)
+          
+          bandasProyecto(j).LK=LK_Banda(bandasProyecto(j),dataImOriginal( : , : , vectorOrden(j) )) ;% Calculo de LK con las opciones de la banda y los datos originales de la imagen
+          
+           dataImProcesada(:,:,j)=uint16(bandasProyecto(j).LK*(2^16));
+
+           if i==1
+                         fprintf(fileID,'%s \r\n',['Banda número ',num2str(j),': R',num2str(bandasProyecto(j).banda)]);
+          end
+           
+      end
+    if get(handles.chkComprobacion,'Value')  
+      %Mostramos las imágenes
+      figure('Name',['Imagen numero ',num2str(i)]);
+          subplot(2,3,1);
+          imshow(dataImProcesada(:,:,1));
+                    subplot(2,3,2);
+          imshow(dataImProcesada(:,:,2));
+                    subplot(2,3,3);
+          imshow(dataImProcesada(:,:,3));
+                    subplot(2,3,4);
+          imshow(dataImProcesada(:,:,4));
+                    subplot(2,3,5);
+          imshow(dataImProcesada(:,:,5));
+                    subplot(2,3,6);
+          imshow(dataImProcesada(:,:,6));
+            set(gcf,'units','normalized','outerposition',[0 0 1 1])
+        
+ 
+      set(0, 'CurrentFigure', current_process); 
       
+    end
+    
+    
          waitbar((i/numImagenes(2)),current_process,['Procesando imagen ',num2str(i),' de ',num2str(numImagenes(2))])
          
-         % Añadimos capa Stretching
-            if get(handles.chkComprobacion,'Value')==1    
-             numBandas=numBandas+1;   
-                               if i==1
-                        fprintf(fileID,'%s \r\n',['Banda número',' ','1',': Banda con Stretching']);
-                               end
-            bandaStretching=get(handles.numStretching,'Value');
-            
-            bandaNueva=dataImOriginal(:,:,bandaStretching);
-            minBanda=min(min(bandaNueva));
-            maxBanda=max(max(bandaNueva));
-            bandaNueva=bandaNueva-minBanda;
-            bandaNueva=((2^16)/(maxBanda-minBanda))*bandaNueva;
-            dataImProcesada(:,:,1)=bandaNueva;
-            dataImProcesada(:,:,2)=dataImOriginal(:,:,vectorOrden(1));
-            dataImProcesada(:,:,3)=dataImOriginal(:,:,vectorOrden(2));
-            dataImProcesada(:,:,4)=dataImOriginal(:,:,vectorOrden(3));
-            dataImProcesada(:,:,5)=dataImOriginal(:,:,vectorOrden(4));
-            dataImProcesada(:,:,6)=dataImOriginal(:,:,vectorOrden(5));
-            dataImProcesada(:,:,7)=dataImOriginal(:,:,vectorOrden(6));
-            end 
+%          % Añadimos capa Stretching
+%             if get(handles.chkComprobacion,'Value')==1    
+%              numBandas=numBandas+1;   
+%                                if i==1
+%                         fprintf(fileID,'%s \r\n',['Banda número',' ','1',': Banda con Stretching']);
+%                                end
+%             bandaStretching=get(handles.numStretching,'Value');
+%             
+%             bandaNueva=dataImOriginal(:,:,bandaStretching);
+%             minBanda=min(min(bandaNueva));
+%             maxBanda=max(max(bandaNueva));
+%             bandaNueva=bandaNueva-minBanda;
+%             bandaNueva=((2^16)/(maxBanda-minBanda))*bandaNueva;
+%             dataImProcesada(:,:,1)=bandaNueva;
+%             dataImProcesada(:,:,2)=dataImOriginal(:,:,vectorOrden(1));
+%             dataImProcesada(:,:,3)=dataImOriginal(:,:,vectorOrden(2));
+%             dataImProcesada(:,:,4)=dataImOriginal(:,:,vectorOrden(3));
+%             dataImProcesada(:,:,5)=dataImOriginal(:,:,vectorOrden(4));
+%             dataImProcesada(:,:,6)=dataImOriginal(:,:,vectorOrden(5));
+%             dataImProcesada(:,:,7)=dataImOriginal(:,:,vectorOrden(6));
+%             end 
          
          
          
@@ -712,7 +804,7 @@ else
                                     msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice NDVI');
                                     return;
                                 else
-                                          NDVI_Actual=NDVI_Multibanda(R670,R780,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataImOriginal(:,:,R780.id),dataImOriginal(:,:,R670.id));                 
+                                          NDVI_Actual=NDVI_BandaConLK(R670,R780,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
                                             numBandas=numBandas+1;
                                              dataImProcesada(:,:,numBandas)=NDVI_Actual*1000;
                                                          if i==1
@@ -727,7 +819,7 @@ else
                                                         msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice DCNI');
                                                         return;
                                     else
-                                        DCNI_Actual=DCNI_Multibanda(R730,R710,R670,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataImOriginal(:,:,R730.id),dataImOriginal(:,:,R710.id),dataImOriginal(:,:,R670.id));                 
+                                        DCNI_Actual=DCNI_BandaConLK(R730,R710,R670,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
                                         numBandas=numBandas+1;
                                         dataImProcesada(:,:,numBandas)=DCNI_Actual*1000;
                                                     if i==1
@@ -742,7 +834,7 @@ else
                                     msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice TCARI');
                                     return;
                                 else
-                                       TCARI_Actual=TCARI_OSAVI_Multibanda(R710,R670,R550,R780,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataImOriginal(:,:,R710.id),dataImOriginal(:,:,R670.id),dataImOriginal(:,:,R550.id),dataImOriginal(:,:,R780.id));                 
+                                       TCARI_Actual=TCARI_OSAVI_BandaConLK(R710,R670,R550,R780,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
                                         numBandas=numBandas+1;
                                         dataImProcesada(:,:,numBandas)=TCARI_Actual*1000;
                                                        if i==1
@@ -757,7 +849,7 @@ else
                     msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice PRI');
                     return;
                 else
-                        PRI_Actual=PRI_Multibanda(R530,R570,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux,dataImOriginal(:,:,R530.id),dataImOriginal(:,:,R570.id));                 
+                        PRI_Actual=PRI_BandaConLK(R530,R570,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
                         numBandas=numBandas+1;
                         dataImProcesada(:,:,numBandas)=(PRI_Actual+1)*1000;
                                        if i==1

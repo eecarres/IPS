@@ -13,3 +13,11 @@
 4.4	-Añadida la "gestión de proyectos": Creación de sistema de carpetas para cada misión, todas las cargas de archivos ahora apuntan a las carpetas predeterminadas, ya no hay 		necesidad de copiar y pegar el código en cada carpeta para que funcione.
 	-Añadido el índice PRI
 	-Añadido el "informe de post procesado" que muestra las bandas que se han empleado y los indices calculados, así como la fecha y el tiempo de cálculo.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+5.0	-Cambiado el proceso: Ahora las reflectancias se calculan antes de los índices y no en las funciones de éstos. Se elimina la banda stretching ya que el resultado incluye
+		las 6 bandas de reflectancias pero llevadas a 16 bits (multiplicadas por 2^16).
+	-Añadida la comprobación de las reflectancias, que muestra las 6 bandas de reflectancias de cada imagen durante el proceso. Se debe emplear con pocas imágenes o se puede 			saturar al ordenador.
+	-Cambios en el informe de procesado, que ahora muestra las reflectancias y los valores digitales de cada banda.
+	-El programa guarda los últimos valores empleados de reflectancia (datos que suelen provenir del radioespectrómetro)
