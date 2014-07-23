@@ -30,11 +30,17 @@ handles.output = hObject;
 
 if nargin==5
     
+    load ('ultimoProyecto','referenciasCalibracion');
     handles.pathProyecto=varargin{1,1};
     handles.indiceProyecto=varargin{1,2};
     pathProyecto=handles.pathProyecto;
     indiceProyecto=handles.indiceProyecto;
-    save ('ultimoProyecto','pathProyecto','indiceProyecto');
+    try
+    save ('ultimoProyecto','pathProyecto','indiceProyecto','referenciasCalibracion');
+    catch
+       save ('ultimoProyecto','pathProyecto','indiceProyecto'); 
+    end
+    
 else
     load ('ultimoProyecto','pathProyecto','indiceProyecto');
     handles.pathProyecto=pathProyecto;

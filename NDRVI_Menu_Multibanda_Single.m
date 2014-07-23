@@ -673,6 +673,19 @@ end
 
 Bandas=handles.bandas;
 
+
+
+
+%Creamos el archivo de guardado para el generado del informe
+[direccion,nombreProyecto]=strtok(handles.pathProyecto,'/');
+[direccion,nombreProyecto]=strtok(nombreProyecto,'/');
+nombreProyecto=nombreProyecto(2:end);
+save([handles.pathProyecto,'/Informe/',nombreProyecto,'.mat'],'configTetracam','bandasProyecto','Bandas');
+
+
+
+
+
 fileID = fopen(strcat(handles.pathProyecto,'/Procesadas/Multi/','Informe de postprocesado.txt'),'w');
 fprintf(fileID,'%s \r\n',strcat('Directorio del proyecto: ',handles.pathProyecto));
 fprintf(fileID,'%s \r\n','---------------------------------------------------------------');

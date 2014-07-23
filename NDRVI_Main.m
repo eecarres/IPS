@@ -22,7 +22,7 @@ function varargout = NDRVI_Main(varargin)
 
 % Edit the above text to modify the response to help NDRVI_Main
 
-% Last Modified by GUIDE v2.5 16-Jul-2014 10:13:37
+% Last Modified by GUIDE v2.5 23-Jul-2014 09:50:11
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -182,7 +182,8 @@ if isempty(textoIntroducido) || strcmp(textoIntroducido,'Introduzca nombre de pr
     return;
 else
 nombreProyecto=textoIntroducido;
-mkdir('C:/Agromav IPS', nombreProyecto);   
+mkdir('C:/Agromav IPS', nombreProyecto);  
+mkdir(strcat('C:/Agromav IPS/',nombreProyecto),'Informe');   
 mkdir(strcat('C:/Agromav IPS/',nombreProyecto),'Tiffs Multipage');   
 mkdir(strcat('C:/Agromav IPS/',nombreProyecto),'Tiffs 16 bits para procesar');   
 mkdir(strcat('C:/Agromav IPS/',nombreProyecto,'/Tiffs 16 bits para procesar'),'6 bandes');
@@ -247,3 +248,13 @@ end
 function btnPW2_Callback(hObject, eventdata, handles)
 system('C:\Program Files\Tetracam\PixelWrench2\PixelWrench2.exe');
 guidata(hObject,handles);
+
+
+function btnInforme_Callback(hObject, eventdata, handles)
+proyectos=get(handles.lstProyectosExistentes,'String');
+indice=get(handles.lstProyectosExistentes,'Value');
+path=strcat('C:/Agromav IPS/',char(proyectos(indice,:)));
+GeneradorInforme(path,indice);
+close NDRVI_Main;
+
+
