@@ -1,4 +1,4 @@
-function [varargout] = Informe(nombreProyecto,pathProyecto,nombreImagen)
+function [varargout] = InformeVol2(nombreProyecto,pathProyecto,nombreImagen)
 %Informe de calidad para el cliente, no hay que incluir cosas propias de la
 %empresa como puede ser la configuración de la TetraCam
 %Para llamar a la funcion de creacion de informe=> publish('Informe.m','codeToEvaluate','Informe(R780)');
@@ -6,8 +6,8 @@ function [varargout] = Informe(nombreProyecto,pathProyecto,nombreImagen)
 %imagen16Bits esta desodenada (Master primero)
 %% Informe de calidad del post procesado - Hemav: Datos de la misión
 % Nombre de la misión:
-disp(nombreProyecto);
-disp(nombreImagen);
+disp('Vol 1 Algerri Balaguer');
+disp('TTC3218.tif');
 load(['C:/Agromav IPS/',nombreProyecto,'/Informe/',nombreProyecto,'.mat']);
 %% 
 % Configuración de las bandas en TetraCam
@@ -82,15 +82,15 @@ imAjustadaB6=imadjust(imagen16Bits(:,:,6));
 %Sacamos cada histograma como un grafico de barras para simplificar
 
  subplot(2,6,7);
-          [valoresY1,valoresX1]=imhist(imagen16Bits(:,:,2),1024);
+          [valoresY1,valoresX1]=imhist(imagen16Bits(:,:,2),4096);
           valoresY1PCT=(valoresY1/sum(valoresY1))*100;
           bar(valoresX1,valoresY1PCT);
           axis([0 max(max(imagen16Bits(:,:,2))) 0 max(valoresY1PCT)]);
-          xlabel(['ND R',num2str(bandasProyecto(1   ).banda) ]);
+          xlabel(['ND R',num2str(bandasProyecto(1).banda) ]);
           ylabel('%');
           
                     subplot(2,6,8);
-          [valoresY2,valoresX2]=imhist(imagen16Bits(:,:,3),1024);
+          [valoresY2,valoresX2]=imhist(imagen16Bits(:,:,3),4096);
           valoresY2PCT=(valoresY2/sum(valoresY2))*100;
           bar(valoresX2,valoresY2PCT);
           axis([0 max(max(imagen16Bits(:,:,3))) 0 max(valoresY2PCT)]);
@@ -98,7 +98,7 @@ imAjustadaB6=imadjust(imagen16Bits(:,:,6));
           ylabel('%');
           
                     subplot(2,6,9);
-         [valoresY3,valoresX3]=imhist(imagen16Bits(:,:,4),1024);
+         [valoresY3,valoresX3]=imhist(imagen16Bits(:,:,4),4096);
           valoresY3PCT=(valoresY3/sum(valoresY3))*100;
           bar(valoresX3,valoresY3PCT);
           axis([0 max(max(imagen16Bits(:,:,4))) 0 max(valoresY3PCT)]);
@@ -106,7 +106,7 @@ imAjustadaB6=imadjust(imagen16Bits(:,:,6));
           ylabel('%');
           
                     subplot(2,6,10);
-          [valoresY4,valoresX4]=imhist(imagen16Bits(:,:,5),1024);
+          [valoresY4,valoresX4]=imhist(imagen16Bits(:,:,5),4096);
           valoresY4PCT=(valoresY4/sum(valoresY4))*100;
           bar(valoresX4,valoresY4PCT);
           axis([0 max(max(imagen16Bits(:,:,5))) 0 max(valoresY4PCT)]);
@@ -114,7 +114,7 @@ imAjustadaB6=imadjust(imagen16Bits(:,:,6));
           ylabel('%');
           
                     subplot(2,6,11);
-          [valoresY5,valoresX5]=imhist(imagen16Bits(:,:,6),1024);
+          [valoresY5,valoresX5]=imhist(imagen16Bits(:,:,6),4096);
           valoresY5PCT=(valoresY5/sum(valoresY5))*100;
           bar(valoresX5,valoresY5PCT);
           axis([0 max(max(imagen16Bits(:,:,6))) 0 max(valoresY5PCT)]);
@@ -131,14 +131,14 @@ imAjustadaB6=imadjust(imagen16Bits(:,:,6));
   %%        
  % Histograma combinado de todas las bandas      
  
- figure();
-            valoresXCombinados=[valoresX1,valoresX2,valoresX3,valoresX4,valoresX5,valoresX6];
-            valoresYPCTCombinados=[valoresY1PCT,valoresY2PCT,valoresY3PCT,valoresY4PCT,valoresY5PCT,valoresY6PCT];
-            bar(valoresXCombinados,valoresYPCTCombinados,'grouped');
-          legend(leyendaBandas); % Cargar la leyenda!
-          axis([0 max(max(max(imagen16Bits))) 0 max(max(valoresYPCTCombinados))]);
-          xlabel('ND');
-          ylabel('%');      
+%  figure();
+%             valoresXCombinados=[valoresX1,valoresX2,valoresX3,valoresX4,valoresX5,valoresX6];
+%             valoresYPCTCombinados=[valoresY1PCT,valoresY2PCT,valoresY3PCT,valoresY4PCT,valoresY5PCT,valoresY6PCT];
+%             bar(valoresXCombinados,valoresYPCTCombinados,'grouped');
+%           legend(leyendaBandas); % Cargar la leyenda!
+%           axis([0 max(max(max(imagen16Bits))) 0 max(max(valoresYPCTCombinados))]);
+%           xlabel('ND');
+%           ylabel('%');      
 
 %% 
 % Estadísticas de cada banda
@@ -291,13 +291,6 @@ imshow(reflectanciaCIR);
 
     
 %%  
-figure('Name','Imagen Calibrada (reflectancia)','Position',[0 0 1920 700]);
- 
-
-
-
-
-
 
 
 %% 

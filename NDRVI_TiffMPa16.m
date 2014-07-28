@@ -255,7 +255,7 @@ for i=1:numImagenes(2)
     Green=uint16(imagenActual(:,:,2));
     Blue=uint16(imagenActual(:,:,3));
     Green4=4*Green;
-    BM= Green4 + Green - Blue;
+    BM= Green4 + Green - Blue;  
     
     clear imagenActual Green Blue;
     
