@@ -1,0 +1,311 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>InformeEspectrometro</title><meta name="generator" content="MATLAB 8.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-08-04"><meta name="DC.source" content="InformeEspectrometro.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1></h1><!--introduction--><p><b>Informe calidad Radioespectr&oacute;metro</b></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2"><b>Informaci&oacute;n sobre el vuelo</b></a></li><li><a href="#3"><b>Datos del radioespectr&oacute;metro con las placas de calibraci&oacute;n</b></a></li><li><a href="#4"><b>Evaluaci&oacute;n de longitud de onda R670 en crudo</b></a></li><li><a href="#5"><b>Evaluaci&oacute;n de longitud de onda R670 filtrando datos</b></a></li><li><a href="#8"><b>Evaluaci&oacute;n de longitud de onda R780 en crudo</b></a></li><li><a href="#9"><b>Evaluaci&oacute;n de longitud de onda R780 filtrando datos</b></a></li></ul></div><p><img vspace="5" hspace="5" src="C:\Users\Ethan\Documents\MATLAB\HEMAV\Agro\Bloque 2 Matlab y C Sharp\Espectrometre/1 Logo Final 3v.PNG" alt=""> </p><h2><b>Informaci&oacute;n sobre el vuelo</b><a name="2"></a></h2><div><ul><li><b>Nombre de la misi&oacute;n</b>: Vuelo 1 Algerri Balaguer</li><li><b>Hora solar de inicio / final</b>: 13:25:37 /  13:32:14</li><li><b>Observaciones meteorol&oacute;gicas:</b> Soleado</li></ul></div><h2><b>Datos del radioespectr&oacute;metro con las placas de calibraci&oacute;n</b><a name="3"></a></h2><p><b>Medidas de la placa de calibraci&oacute;n para blanco gris y negro:</b></p><div><ol><li><b>Oficina:</b> ..../...../....</li><li><b>Pre Vuelo:</b>  ..../...../....</li><li><b>Post Vuelo:</b>  ..../...../....</li></ol></div><h2><b>Evaluaci&oacute;n de longitud de onda R670 en crudo</b><a name="4"></a></h2><img vspace="5" hspace="5" src="InformeEspectrometro_01.png" alt=""> <h2><b>Evaluaci&oacute;n de longitud de onda R670 filtrando datos</b><a name="5"></a></h2><p>Se han sustituido dos valores por las medias correspondientes a sus puntos:</p><div><ol><li><b>Primer valor del quinto punto:</b> M&aacute;s del doble de la media en el punto, posible vibraci&oacute;n del drone</li><li><b>&Uacute;ltimo valor de la muestra (punto 19):</b> Posiblemente se trate de un movimiento del drone que hizo apuntar hacia el suelo (marr&oacute;n, alto contenido de rojo en comparaci&oacute;n a la vegetaci&oacute;n).</li></ol></div><img vspace="5" hspace="5" src="InformeEspectrometro_02.png" alt=""> <p>Se puede ver que a&uacute;n as&iacute; hay valores fuera de la media, pero se mantiene un error aceptable en las muestras de cada punto</p>
+<TABLE BGCOLOR=gray ALIGN=center><TR><TH BGCOLOR=white ALIGN=center>ID punto</TH><TH BGCOLOR=white ALIGN=center>Máximo de la muestra</TH><TH BGCOLOR=white ALIGN=center>Mínimo de la muestra</TH><TH BGCOLOR=white ALIGN=center>Media de la muestra</TH><TH BGCOLOR=white ALIGN=center>Rango</TH></TR>
+<TR>
+<TD BGCOLOR=white ALIGN=right>1</TD><TD BGCOLOR=white ALIGN=right>0.0266357</TD><TD BGCOLOR=white ALIGN=right>0.0230807</TD><TD BGCOLOR=white ALIGN=right>0.0253212</TD><TD BGCOLOR=white ALIGN=right>0.003555</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>10</TD><TD BGCOLOR=white ALIGN=right>0.0277029</TD><TD BGCOLOR=white ALIGN=right>0.0252807</TD><TD BGCOLOR=white ALIGN=right>0.0267621</TD><TD BGCOLOR=white ALIGN=right>0.00242226</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>11</TD><TD BGCOLOR=white ALIGN=right>0.0270007</TD><TD BGCOLOR=white ALIGN=right>0.0268209</TD><TD BGCOLOR=white ALIGN=right>0.0269254</TD><TD BGCOLOR=white ALIGN=right>0.000179846</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>12</TD><TD BGCOLOR=white ALIGN=right>0.0271415</TD><TD BGCOLOR=white ALIGN=right>0.0252879</TD><TD BGCOLOR=white ALIGN=right>0.0261885</TD><TD BGCOLOR=white ALIGN=right>0.00185358</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>13</TD><TD BGCOLOR=white ALIGN=right>0.05641</TD><TD BGCOLOR=white ALIGN=right>0.0249273</TD><TD BGCOLOR=white ALIGN=right>0.0338479</TD><TD BGCOLOR=white ALIGN=right>0.0314827</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>14</TD><TD BGCOLOR=white ALIGN=right>0.0264551</TD><TD BGCOLOR=white ALIGN=right>0.0244084</TD><TD BGCOLOR=white ALIGN=right>0.0249614</TD><TD BGCOLOR=white ALIGN=right>0.00204668</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>15</TD><TD BGCOLOR=white ALIGN=right>0.0243542</TD><TD BGCOLOR=white ALIGN=right>0.0191746</TD><TD BGCOLOR=white ALIGN=right>0.022759</TD><TD BGCOLOR=white ALIGN=right>0.00517968</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>16</TD><TD BGCOLOR=white ALIGN=right>0.0278877</TD><TD BGCOLOR=white ALIGN=right>0.021886</TD><TD BGCOLOR=white ALIGN=right>0.0251434</TD><TD BGCOLOR=white ALIGN=right>0.00600173</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>17</TD><TD BGCOLOR=white ALIGN=right>0.0305633</TD><TD BGCOLOR=white ALIGN=right>0.0263023</TD><TD BGCOLOR=white ALIGN=right>0.0280563</TD><TD BGCOLOR=white ALIGN=right>0.00426101</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>18</TD><TD BGCOLOR=white ALIGN=right>0.0281613</TD><TD BGCOLOR=white ALIGN=right>0.0250427</TD><TD BGCOLOR=white ALIGN=right>0.0261726</TD><TD BGCOLOR=white ALIGN=right>0.00311863</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>19</TD><TD BGCOLOR=white ALIGN=right>0.0297728</TD><TD BGCOLOR=white ALIGN=right>0.024435</TD><TD BGCOLOR=white ALIGN=right>0.0272441</TD><TD BGCOLOR=white ALIGN=right>0.00533772</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>2</TD><TD BGCOLOR=white ALIGN=right>0.0281389</TD><TD BGCOLOR=white ALIGN=right>0.0241914</TD><TD BGCOLOR=white ALIGN=right>0.0258864</TD><TD BGCOLOR=white ALIGN=right>0.00394755</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>20</TD><TD BGCOLOR=white ALIGN=right>0.0272478</TD><TD BGCOLOR=white ALIGN=right>0.0237532</TD><TD BGCOLOR=white ALIGN=right>0.025238</TD><TD BGCOLOR=white ALIGN=right>0.00349464</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>21</TD><TD BGCOLOR=white ALIGN=right>0.0278569</TD><TD BGCOLOR=white ALIGN=right>0.0236922</TD><TD BGCOLOR=white ALIGN=right>0.0265632</TD><TD BGCOLOR=white ALIGN=right>0.0041647</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>22</TD><TD BGCOLOR=white ALIGN=right>0.0268147</TD><TD BGCOLOR=white ALIGN=right>0.0239805</TD><TD BGCOLOR=white ALIGN=right>0.0248955</TD><TD BGCOLOR=white ALIGN=right>0.00283424</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>3</TD><TD BGCOLOR=white ALIGN=right>0.0264724</TD><TD BGCOLOR=white ALIGN=right>0.0225017</TD><TD BGCOLOR=white ALIGN=right>0.0248339</TD><TD BGCOLOR=white ALIGN=right>0.00397068</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>4</TD><TD BGCOLOR=white ALIGN=right>0.0248851</TD><TD BGCOLOR=white ALIGN=right>0.0205787</TD><TD BGCOLOR=white ALIGN=right>0.0237208</TD><TD BGCOLOR=white ALIGN=right>0.00430647</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>5</TD><TD BGCOLOR=white ALIGN=right>0.0250191</TD><TD BGCOLOR=white ALIGN=right>0.0211904</TD><TD BGCOLOR=white ALIGN=right>0.0233549</TD><TD BGCOLOR=white ALIGN=right>0.00382862</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>6</TD><TD BGCOLOR=white ALIGN=right>0.375313</TD><TD BGCOLOR=white ALIGN=right>0.0232227</TD><TD BGCOLOR=white ALIGN=right>0.09407</TD><TD BGCOLOR=white ALIGN=right>0.35209</TD>
+</TR></TABLE>
+<h2><b>Evaluaci&oacute;n de longitud de onda R780 en crudo</b><a name="8"></a></h2><img vspace="5" hspace="5" src="InformeEspectrometro_03.png" alt=""> <h2><b>Evaluaci&oacute;n de longitud de onda R780 filtrando datos</b><a name="9"></a></h2><p>Se han sustituido dos valores por las medias correspondientes a sus puntos:</p><div><ol><li><b>Primer valor del s&eacute;ptimo punto:</b> M&aacute;s de la mitad de la media en el punto, posible vibraci&oacute;n del drone</li></ol></div><img vspace="5" hspace="5" src="InformeEspectrometro_04.png" alt=""> <p>Se puede ver que a&uacute;n as&iacute; hay valores fuera de la media, pero se mantiene un error aceptable en las muestras de cada punto</p>
+<TABLE BGCOLOR=gray ALIGN=center><TR><TH BGCOLOR=white ALIGN=center>ID punto</TH><TH BGCOLOR=white ALIGN=center>Máximo de la muestra</TH><TH BGCOLOR=white ALIGN=center>Mínimo de la muestra</TH><TH BGCOLOR=white ALIGN=center>Media de la muestra</TH><TH BGCOLOR=white ALIGN=center>Rango</TH></TR>
+<TR>
+<TD BGCOLOR=white ALIGN=right>1</TD><TD BGCOLOR=white ALIGN=right>0.526775</TD><TD BGCOLOR=white ALIGN=right>0.485266</TD><TD BGCOLOR=white ALIGN=right>0.498013</TD><TD BGCOLOR=white ALIGN=right>0.0415085</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>10</TD><TD BGCOLOR=white ALIGN=right>0.565705</TD><TD BGCOLOR=white ALIGN=right>0.524242</TD><TD BGCOLOR=white ALIGN=right>0.537492</TD><TD BGCOLOR=white ALIGN=right>0.0414626</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>11</TD><TD BGCOLOR=white ALIGN=right>0.515412</TD><TD BGCOLOR=white ALIGN=right>0.502945</TD><TD BGCOLOR=white ALIGN=right>0.506001</TD><TD BGCOLOR=white ALIGN=right>0.0124672</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>12</TD><TD BGCOLOR=white ALIGN=right>0.536347</TD><TD BGCOLOR=white ALIGN=right>0.50361</TD><TD BGCOLOR=white ALIGN=right>0.520197</TD><TD BGCOLOR=white ALIGN=right>0.0327372</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>13</TD><TD BGCOLOR=white ALIGN=right>0.578363</TD><TD BGCOLOR=white ALIGN=right>0.495768</TD><TD BGCOLOR=white ALIGN=right>0.533135</TD><TD BGCOLOR=white ALIGN=right>0.0825957</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>14</TD><TD BGCOLOR=white ALIGN=right>0.548803</TD><TD BGCOLOR=white ALIGN=right>0.519687</TD><TD BGCOLOR=white ALIGN=right>0.540217</TD><TD BGCOLOR=white ALIGN=right>0.0291156</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>15</TD><TD BGCOLOR=white ALIGN=right>0.512134</TD><TD BGCOLOR=white ALIGN=right>0.269121</TD><TD BGCOLOR=white ALIGN=right>0.442799</TD><TD BGCOLOR=white ALIGN=right>0.243013</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>16</TD><TD BGCOLOR=white ALIGN=right>0.556575</TD><TD BGCOLOR=white ALIGN=right>0.489373</TD><TD BGCOLOR=white ALIGN=right>0.520041</TD><TD BGCOLOR=white ALIGN=right>0.0672014</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>17</TD><TD BGCOLOR=white ALIGN=right>0.579111</TD><TD BGCOLOR=white ALIGN=right>0.522328</TD><TD BGCOLOR=white ALIGN=right>0.537527</TD><TD BGCOLOR=white ALIGN=right>0.056783</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>18</TD><TD BGCOLOR=white ALIGN=right>0.590627</TD><TD BGCOLOR=white ALIGN=right>0.479401</TD><TD BGCOLOR=white ALIGN=right>0.524498</TD><TD BGCOLOR=white ALIGN=right>0.111226</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>19</TD><TD BGCOLOR=white ALIGN=right>0.617422</TD><TD BGCOLOR=white ALIGN=right>0.484584</TD><TD BGCOLOR=white ALIGN=right>0.55473</TD><TD BGCOLOR=white ALIGN=right>0.132838</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>2</TD><TD BGCOLOR=white ALIGN=right>0.595316</TD><TD BGCOLOR=white ALIGN=right>0.484287</TD><TD BGCOLOR=white ALIGN=right>0.533193</TD><TD BGCOLOR=white ALIGN=right>0.111029</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>20</TD><TD BGCOLOR=white ALIGN=right>0.568555</TD><TD BGCOLOR=white ALIGN=right>0.446787</TD><TD BGCOLOR=white ALIGN=right>0.521113</TD><TD BGCOLOR=white ALIGN=right>0.121768</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>21</TD><TD BGCOLOR=white ALIGN=right>0.523846</TD><TD BGCOLOR=white ALIGN=right>0.445003</TD><TD BGCOLOR=white ALIGN=right>0.498101</TD><TD BGCOLOR=white ALIGN=right>0.0788428</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>22</TD><TD BGCOLOR=white ALIGN=right>0.511026</TD><TD BGCOLOR=white ALIGN=right>0.410464</TD><TD BGCOLOR=white ALIGN=right>0.479387</TD><TD BGCOLOR=white ALIGN=right>0.100562</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>3</TD><TD BGCOLOR=white ALIGN=right>0.531824</TD><TD BGCOLOR=white ALIGN=right>0.467445</TD><TD BGCOLOR=white ALIGN=right>0.506896</TD><TD BGCOLOR=white ALIGN=right>0.0643781</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>4</TD><TD BGCOLOR=white ALIGN=right>0.513083</TD><TD BGCOLOR=white ALIGN=right>0.32273</TD><TD BGCOLOR=white ALIGN=right>0.457179</TD><TD BGCOLOR=white ALIGN=right>0.190353</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>5</TD><TD BGCOLOR=white ALIGN=right>0.510078</TD><TD BGCOLOR=white ALIGN=right>0.455754</TD><TD BGCOLOR=white ALIGN=right>0.488078</TD><TD BGCOLOR=white ALIGN=right>0.0543244</TD>
+</TR><TR>
+<TD BGCOLOR=white ALIGN=right>6</TD><TD BGCOLOR=white ALIGN=right>0.503695</TD><TD BGCOLOR=white ALIGN=right>0.386031</TD><TD BGCOLOR=white ALIGN=right>0.468437</TD><TD BGCOLOR=white ALIGN=right>0.117664</TD>
+</TR></TABLE>
+<p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2014a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%%
+% *Informe calidad Radioespectrómetro*
+%%
+% 
+% <<C:\Users\Ethan\Documents\MATLAB\HEMAV\Agro\Bloque 2 Matlab y C Sharp\Espectrometre/1 Logo Final 3v.PNG>>
+
+%banda1=R670
+%banda2=R780
+
+%% *Información sobre el vuelo*
+% * *Nombre de la misión*: Vuelo 1 Algerri Balaguer
+% * *Hora solar de inicio / final*: 13:25:37 /  13:32:14
+% * *Observaciones meteorológicas:* Soleado
+%% *Datos del radioespectrómetro con las placas de calibración*
+% *Medidas de la placa de calibración para blanco gris y negro:*
+%
+% # *Oficina:* ..../...../....
+% # *Pre Vuelo:*  ..../...../....
+% # *Post Vuelo:*  ..../...../....
+%
+%% *Evaluación de longitud de onda R670 en crudo*
+% 
+%Leemos el Excel con los datos
+pathDatosRdspc='C:\Users\Ethan\Documents\MATLAB\HEMAV\Agro\Bloque 2 Matlab y C Sharp\Espectrometre\Entregables Algerri-Balaguer\Vol 1 Espectrometre.xlsx';
+
+[~,~,raw]=xlsread(pathDatosRdspc); % Extraemos datos en crudo de la hoja 1 (para los datos originales)
+[~,sheets]=xlsfinfo(pathDatosRdspc); % Nombres de las hojas
+medidas=numel(raw(1,2:end)); %Obtenemos el numero de medidas totales
+bandaR670Raw=raw(717,2:end); % R670 en crudo
+bandaR780Raw=raw(944,2:end); % R780 en crudo
+
+clear raw; % liberamos espacio en memoria
+
+%Analizamos la banda 1
+numeracionPuntos=cell(1,medidas/5); % Inicializamos el vector
+[~,~,raw]=xlsread(pathDatosRdspc,char(sheets(1,2,:))); %Leemos la segunda hoja para extraer los nombres de los puntos
+numeracionPuntos(1,:)=raw(1,2:(1+medidas/5)); % Damos al vector los valores de orden de los puntos
+clear raw; % liberamos espacio en memoria
+analisisBanda=zeros(5,medidas/5); %Inicializamos el vector de análisis
+analisisBanda(1,:)=cell2mat(numeracionPuntos); % La primera fila del vector análisis es el orden de los puntos
+valoresBanda=zeros(5,medidas/5);% Inicializamos el vector que contendrá las medidas de cada punto (1 columna por punto, 5 medidas(filas) por punto).
+j=0;
+for i=1:5:(medidas)
+    j=j+1;
+    rawValores=[bandaR670Raw(i) bandaR670Raw(i+1) bandaR670Raw(i+2) bandaR670Raw(i+3) bandaR670Raw(i+4)]; %Leemos los valores como cells
+    valores=cell2mat(rawValores); % Vector que contiene los 5 valores del punto en double
+    valoresBanda(:,j)=valores'; %Guardamos los valores clasificados por puntos (1 columna por punto)
+    
+    %Hacemos las estadísticas y las guardamos en analisisBanda
+    analisisBanda(2,j)=max(valores);
+    analisisBanda(3,j)=min(valores);
+    analisisBanda(4,j)=mean(valores);
+%     analisisBanda(5,j)=max(valores)-mean(valores);
+%     analisisBanda(6,j)=mean(valores)-min(valores);
+    analisisBanda(5,j)=max(valores)-min(valores);
+    
+    
+    
+    
+end
+
+%Mostramos las estadísticas de cada punto
+%disp(analisisBanda);
+
+%Mostramos gráfico de los puntos
+figure();
+boxplot(valoresBanda);
+ 
+%% *Evaluación de longitud de onda R670 filtrando datos*
+% Se han sustituido dos valores por las medias correspondientes a sus
+% puntos:
+%%
+% 
+% # *Primer valor del quinto punto:* Más del doble de la media en el punto,
+% posible vibración del drone
+% # *Último valor de la muestra (punto 19):* Posiblemente se trate de un
+% movimiento del drone que hizo apuntar hacia el suelo (marrón, alto
+% contenido de rojo en comparación a la vegetación).
+% 
+
+% valoresBanda(1,5)=analisisBanda(4,5);
+% valoresBanda(5,19)=analisisBanda(4,19);
+valoresBanda(1,5)=NaN;
+valoresBanda(5,19)=NaN;
+figure();
+boxplot(valoresBanda);
+
+%% 
+% Se puede ver que aún así hay valores fuera de la media, pero se mantiene
+% un error aceptable en las muestras de cada punto
+% 
+disp <html>
+disp(GTHTMLtable(analisisBanda' , {'ID punto' 'Máximo de la muestra' 'Mínimo de la muestra' 'Media de la muestra' 'Rango'  }      ));
+disp </html>
+
+%% *Evaluación de longitud de onda R780 en crudo*
+% 
+
+%Analizamos la banda 2
+analisisBanda=zeros(5,medidas/5); %Inicializamos el vector de análisis
+analisisBanda(1,:)=cell2mat(numeracionPuntos); % La primera fila del vector análisis es el orden de los puntos
+valoresBanda=zeros(5,medidas/5);% Inicializamos el vector que contendrá las medidas de cada punto (1 columna por punto, 5 medidas(filas) por punto).
+j=0;
+for i=1:5:(medidas)
+    j=j+1;
+    rawValores=[bandaR780Raw(i) bandaR780Raw(i+1) bandaR780Raw(i+2) bandaR780Raw(i+3) bandaR780Raw(i+4)]; %Leemos los valores como cells
+    valores=cell2mat(rawValores); % Vector que contiene los 5 valores del punto en double
+    valoresBanda(:,j)=valores'; %Guardamos los valores clasificados por puntos (1 columna por punto)
+    
+    %Hacemos las estadísticas y las guardamos en analisisBanda
+    analisisBanda(2,j)=max(valores);
+    analisisBanda(3,j)=min(valores);
+    analisisBanda(4,j)=mean(valores);
+%     analisisBanda(5,j)=max(valores)-mean(valores);
+%     analisisBanda(6,j)=mean(valores)-min(valores);
+    analisisBanda(5,j)=max(valores)-min(valores);
+    
+    
+    
+    
+end
+
+%Mostramos las estadísticas de cada punto
+%disp(analisisBanda);
+
+%Mostramos gráfico de los puntos
+figure();
+boxplot(valoresBanda);
+ 
+%% *Evaluación de longitud de onda R780 filtrando datos*
+% Se han sustituido dos valores por las medias correspondientes a sus
+% puntos:
+%%
+% 
+% # *Primer valor del séptimo punto:* Más de la mitad de la media en el punto,
+% posible vibración del drone
+valoresBanda(1,7)=NaN;
+figure();
+boxplot(valoresBanda);
+
+%% 
+% Se puede ver que aún así hay valores fuera de la media, pero se mantiene
+% un error aceptable en las muestras de cada punto
+% 
+disp <html>
+disp(GTHTMLtable(analisisBanda' , {'ID punto' 'Máximo de la muestra' 'Mínimo de la muestra' 'Media de la muestra' 'Rango'  }      ));
+disp </html>
+%%
+% 
+close all;
+
+
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>
