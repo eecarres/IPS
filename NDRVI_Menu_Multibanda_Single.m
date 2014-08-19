@@ -571,16 +571,20 @@ chkImagenes=get(handles.chkImagenes,'Value');
 
 %% Iniciamos todas las bandas como un objeto nulo para reconocer si las tenemos en la configuración actual o no;
 
+R420=[];
 R450=[];
 R530=[];
 R550=[];
 R570=[];
 R670=[];
+R700=[];
 R710=[];
 R720=[];
 R730=[];
 R780=[];
 R800=[];
+R910=[];
+R950=[];
 
 referenciasCalibracion=[handles.Master.reflectancias handles.B1.reflectancias handles.B2.reflectancias handles.B3.reflectancias handles.B4.reflectancias handles.B5.reflectancias];
 pathProyecto=handles.pathProyecto;
@@ -590,8 +594,7 @@ save ('ultimoProyecto', 'referenciasCalibracion', 'pathProyecto','indiceProyecto
 
 configTetracam=get(handles.lblConfig,'String');
 switch configTetracam
-    
-    
+                   
     case 'Estandar (ilerdair)'
                    R780=handles.Master;
                    R780.banda=780;
@@ -613,6 +616,28 @@ switch configTetracam
                     
                    vectorOrden=[2 3 4 5 6 1];
                    bandasProyecto=[R450 R550 R670 R710 R730 R780];
+                   
+    case 'RGBN Pruebas'
+                   R780=handles.Master;
+                   R780.banda=780;
+                   
+                   R450=handles.B1;
+                   R450.banda=450;
+                   
+                   R550=handles.B2;
+                   R550.banda=550;
+                   
+                   R670=handles.B3;
+                   R670.banda=670;
+                   
+                   R710=handles.B4;
+                   R710.banda=710;
+                   
+                   R800=handles.B5;
+                   R800.banda=800;
+                    
+                   vectorOrden=[2 3 4 5 6 1];
+                   bandasProyecto=[R450 R550 R670 R710 R800 R780];
                    
     case 'Config 1 Algerri'
                    R800=handles.Master;
@@ -660,7 +685,7 @@ switch configTetracam
                    
     otherwise
         
-                     msgbox('Has seleccionado una configuración incorrecta','Cambio de configuración TetraCam');
+                     msgbox('Has seleccionado una configuración incorrecta. Comprueba que se haya añadido al Excel y al código','Cambio de configuración TetraCam');
                      return;
         
 end
