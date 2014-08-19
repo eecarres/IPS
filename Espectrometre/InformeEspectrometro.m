@@ -11,17 +11,20 @@
 % * *Nombre de la misión*: Vuelo 1 Algerri Balaguer
 % * *Hora solar de inicio / final*: 13:25:37 /  13:32:14
 % * *Observaciones meteorológicas:* Soleado
-%% *Datos del radioespectrómetro con las placas de calibración*
-% *Medidas de la placa de calibración para blanco gris y negro:*
+%% *Calibración inicial del blanco en ambos sensores*
+% *Huellas espectrales de la placa de calibración blanca para los sensores GND y AIR:*
+
+%PONER LAS DOS HUELLAS ESPECTRALES
+
+%% *Evolución  de las medidas del sensor GND durante el vuelo*
+% 
 %
-% # *Oficina:* ..../...../....
-% # *Pre Vuelo:*  ..../...../....
-% # *Post Vuelo:*  ..../...../....
-%
+calidadGND; %Llamamos a la función que crea los plots
+
 %% *Evaluación de longitud de onda R670 en crudo*
 % 
 %Leemos el Excel con los datos
-pathDatosRdspc='C:\Users\Ethan\Documents\MATLAB\HEMAV\Agro\Bloque 2 Matlab y C Sharp\Espectrometre\Entregables Algerri-Balaguer\Vol 1 Espectrometre.xlsx';
+pathDatosRdspc='C:\Users\Ethan\Documents\MATLAB\HEMAV\Agro\Bloque 2 Matlab y C Sharp\IPS\Espectrometre\Entregables Algerri-Balaguer\Vol 1 Espectrometre.xlsx';
 
 [~,~,raw]=xlsread(pathDatosRdspc); % Extraemos datos en crudo de la hoja 1 (para los datos originales)
 [~,sheets]=xlsfinfo(pathDatosRdspc); % Nombres de las hojas

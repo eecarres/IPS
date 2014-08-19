@@ -6,7 +6,7 @@
    <!--
 This HTML was auto-generated from MATLAB code.
 To make changes, update the MATLAB code and republish this document.
-      --><title>InformeEspectrometro</title><meta name="generator" content="MATLAB 8.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-08-04"><meta name="DC.source" content="InformeEspectrometro.m"><style type="text/css">
+      --><title>InformeEspectrometro</title><meta name="generator" content="MATLAB 8.3"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2014-08-06"><meta name="DC.source" content="InformeEspectrometro.m"><style type="text/css">
 html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
 
 html { min-height:100%; margin-bottom:1px; }
@@ -66,7 +66,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 
 
 
-  </style></head><body><div class="content"><h1></h1><!--introduction--><p><b>Informe calidad Radioespectr&oacute;metro</b></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2"><b>Informaci&oacute;n sobre el vuelo</b></a></li><li><a href="#3"><b>Datos del radioespectr&oacute;metro con las placas de calibraci&oacute;n</b></a></li><li><a href="#4"><b>Evaluaci&oacute;n de longitud de onda R670 en crudo</b></a></li><li><a href="#5"><b>Evaluaci&oacute;n de longitud de onda R670 filtrando datos</b></a></li><li><a href="#8"><b>Evaluaci&oacute;n de longitud de onda R780 en crudo</b></a></li><li><a href="#9"><b>Evaluaci&oacute;n de longitud de onda R780 filtrando datos</b></a></li></ul></div><p><img vspace="5" hspace="5" src="C:\Users\Ethan\Documents\MATLAB\HEMAV\Agro\Bloque 2 Matlab y C Sharp\Espectrometre/1 Logo Final 3v.PNG" alt=""> </p><h2><b>Informaci&oacute;n sobre el vuelo</b><a name="2"></a></h2><div><ul><li><b>Nombre de la misi&oacute;n</b>: Vuelo 1 Algerri Balaguer</li><li><b>Hora solar de inicio / final</b>: 13:25:37 /  13:32:14</li><li><b>Observaciones meteorol&oacute;gicas:</b> Soleado</li></ul></div><h2><b>Datos del radioespectr&oacute;metro con las placas de calibraci&oacute;n</b><a name="3"></a></h2><p><b>Medidas de la placa de calibraci&oacute;n para blanco gris y negro:</b></p><div><ol><li><b>Oficina:</b> ..../...../....</li><li><b>Pre Vuelo:</b>  ..../...../....</li><li><b>Post Vuelo:</b>  ..../...../....</li></ol></div><h2><b>Evaluaci&oacute;n de longitud de onda R670 en crudo</b><a name="4"></a></h2><img vspace="5" hspace="5" src="InformeEspectrometro_01.png" alt=""> <h2><b>Evaluaci&oacute;n de longitud de onda R670 filtrando datos</b><a name="5"></a></h2><p>Se han sustituido dos valores por las medias correspondientes a sus puntos:</p><div><ol><li><b>Primer valor del quinto punto:</b> M&aacute;s del doble de la media en el punto, posible vibraci&oacute;n del drone</li><li><b>&Uacute;ltimo valor de la muestra (punto 19):</b> Posiblemente se trate de un movimiento del drone que hizo apuntar hacia el suelo (marr&oacute;n, alto contenido de rojo en comparaci&oacute;n a la vegetaci&oacute;n).</li></ol></div><img vspace="5" hspace="5" src="InformeEspectrometro_02.png" alt=""> <p>Se puede ver que a&uacute;n as&iacute; hay valores fuera de la media, pero se mantiene un error aceptable en las muestras de cada punto</p>
+  </style></head><body><div class="content"><h1></h1><!--introduction--><p><b>Informe calidad Radioespectr&oacute;metro</b></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#2"><b>Informaci&oacute;n sobre el vuelo</b></a></li><li><a href="#3"><b>Calibraci&oacute;n inicial del blanco en ambos sensores</b></a></li><li><a href="#4"><b>Evoluci&oacute;n  de las medidas del sensor GND durante el vuelo</b></a></li><li><a href="#5"><b>Evaluaci&oacute;n de longitud de onda R670 en crudo</b></a></li><li><a href="#6"><b>Evaluaci&oacute;n de longitud de onda R670 filtrando datos</b></a></li><li><a href="#9"><b>Evaluaci&oacute;n de longitud de onda R780 en crudo</b></a></li><li><a href="#10"><b>Evaluaci&oacute;n de longitud de onda R780 filtrando datos</b></a></li></ul></div><p><img vspace="5" hspace="5" src="C:\Users\Ethan\Documents\MATLAB\HEMAV\Agro\Bloque 2 Matlab y C Sharp\Espectrometre/1 Logo Final 3v.PNG" alt=""> </p><h2><b>Informaci&oacute;n sobre el vuelo</b><a name="2"></a></h2><div><ul><li><b>Nombre de la misi&oacute;n</b>: Vuelo 1 Algerri Balaguer</li><li><b>Hora solar de inicio / final</b>: 13:25:37 /  13:32:14</li><li><b>Observaciones meteorol&oacute;gicas:</b> Soleado</li></ul></div><h2><b>Calibraci&oacute;n inicial del blanco en ambos sensores</b><a name="3"></a></h2><p><b>Huellas espectrales de la placa de calibraci&oacute;n blanca para los sensores GND y AIR:</b></p><h2><b>Evoluci&oacute;n  de las medidas del sensor GND durante el vuelo</b><a name="4"></a></h2><img vspace="5" hspace="5" src="InformeEspectrometro_01.png" alt=""> <img vspace="5" hspace="5" src="InformeEspectrometro_02.png" alt=""> <img vspace="5" hspace="5" src="InformeEspectrometro_03.png" alt=""> <h2><b>Evaluaci&oacute;n de longitud de onda R670 en crudo</b><a name="5"></a></h2><img vspace="5" hspace="5" src="InformeEspectrometro_04.png" alt=""> <h2><b>Evaluaci&oacute;n de longitud de onda R670 filtrando datos</b><a name="6"></a></h2><p>Se han sustituido dos valores por las medias correspondientes a sus puntos:</p><div><ol><li><b>Primer valor del quinto punto:</b> M&aacute;s del doble de la media en el punto, posible vibraci&oacute;n del drone</li><li><b>&Uacute;ltimo valor de la muestra (punto 19):</b> Posiblemente se trate de un movimiento del drone que hizo apuntar hacia el suelo (marr&oacute;n, alto contenido de rojo en comparaci&oacute;n a la vegetaci&oacute;n).</li></ol></div><img vspace="5" hspace="5" src="InformeEspectrometro_05.png" alt=""> <p>Se puede ver que a&uacute;n as&iacute; hay valores fuera de la media, pero se mantiene un error aceptable en las muestras de cada punto</p>
 <TABLE BGCOLOR=gray ALIGN=center><TR><TH BGCOLOR=white ALIGN=center>ID punto</TH><TH BGCOLOR=white ALIGN=center>Máximo de la muestra</TH><TH BGCOLOR=white ALIGN=center>Mínimo de la muestra</TH><TH BGCOLOR=white ALIGN=center>Media de la muestra</TH><TH BGCOLOR=white ALIGN=center>Rango</TH></TR>
 <TR>
 <TD BGCOLOR=white ALIGN=right>1</TD><TD BGCOLOR=white ALIGN=right>0.0266357</TD><TD BGCOLOR=white ALIGN=right>0.0230807</TD><TD BGCOLOR=white ALIGN=right>0.0253212</TD><TD BGCOLOR=white ALIGN=right>0.003555</TD>
@@ -107,7 +107,7 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 </TR><TR>
 <TD BGCOLOR=white ALIGN=right>6</TD><TD BGCOLOR=white ALIGN=right>0.375313</TD><TD BGCOLOR=white ALIGN=right>0.0232227</TD><TD BGCOLOR=white ALIGN=right>0.09407</TD><TD BGCOLOR=white ALIGN=right>0.35209</TD>
 </TR></TABLE>
-<h2><b>Evaluaci&oacute;n de longitud de onda R780 en crudo</b><a name="8"></a></h2><img vspace="5" hspace="5" src="InformeEspectrometro_03.png" alt=""> <h2><b>Evaluaci&oacute;n de longitud de onda R780 filtrando datos</b><a name="9"></a></h2><p>Se han sustituido dos valores por las medias correspondientes a sus puntos:</p><div><ol><li><b>Primer valor del s&eacute;ptimo punto:</b> M&aacute;s de la mitad de la media en el punto, posible vibraci&oacute;n del drone</li></ol></div><img vspace="5" hspace="5" src="InformeEspectrometro_04.png" alt=""> <p>Se puede ver que a&uacute;n as&iacute; hay valores fuera de la media, pero se mantiene un error aceptable en las muestras de cada punto</p>
+<h2><b>Evaluaci&oacute;n de longitud de onda R780 en crudo</b><a name="9"></a></h2><img vspace="5" hspace="5" src="InformeEspectrometro_06.png" alt=""> <h2><b>Evaluaci&oacute;n de longitud de onda R780 filtrando datos</b><a name="10"></a></h2><p>Se han sustituido dos valores por las medias correspondientes a sus puntos:</p><div><ol><li><b>Primer valor del s&eacute;ptimo punto:</b> M&aacute;s de la mitad de la media en el punto, posible vibraci&oacute;n del drone</li></ol></div><img vspace="5" hspace="5" src="InformeEspectrometro_07.png" alt=""> <p>Se puede ver que a&uacute;n as&iacute; hay valores fuera de la media, pero se mantiene un error aceptable en las muestras de cada punto</p>
 <TABLE BGCOLOR=gray ALIGN=center><TR><TH BGCOLOR=white ALIGN=center>ID punto</TH><TH BGCOLOR=white ALIGN=center>Máximo de la muestra</TH><TH BGCOLOR=white ALIGN=center>Mínimo de la muestra</TH><TH BGCOLOR=white ALIGN=center>Media de la muestra</TH><TH BGCOLOR=white ALIGN=center>Rango</TH></TR>
 <TR>
 <TD BGCOLOR=white ALIGN=right>1</TD><TD BGCOLOR=white ALIGN=right>0.526775</TD><TD BGCOLOR=white ALIGN=right>0.485266</TD><TD BGCOLOR=white ALIGN=right>0.498013</TD><TD BGCOLOR=white ALIGN=right>0.0415085</TD>
@@ -163,17 +163,20 @@ table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px soli
 % * *Nombre de la misión*: Vuelo 1 Algerri Balaguer
 % * *Hora solar de inicio / final*: 13:25:37 /  13:32:14
 % * *Observaciones meteorológicas:* Soleado
-%% *Datos del radioespectrómetro con las placas de calibración*
-% *Medidas de la placa de calibración para blanco gris y negro:*
+%% *Calibración inicial del blanco en ambos sensores*
+% *Huellas espectrales de la placa de calibración blanca para los sensores GND y AIR:*
+
+%PONER LAS DOS HUELLAS ESPECTRALES
+
+%% *Evolución  de las medidas del sensor GND durante el vuelo*
+% 
 %
-% # *Oficina:* ..../...../....
-% # *Pre Vuelo:*  ..../...../....
-% # *Post Vuelo:*  ..../...../....
-%
+calidadGND; %Llamamos a la función que crea los plots
+
 %% *Evaluación de longitud de onda R670 en crudo*
 % 
 %Leemos el Excel con los datos
-pathDatosRdspc='C:\Users\Ethan\Documents\MATLAB\HEMAV\Agro\Bloque 2 Matlab y C Sharp\Espectrometre\Entregables Algerri-Balaguer\Vol 1 Espectrometre.xlsx';
+pathDatosRdspc='C:\Users\Ethan\Documents\MATLAB\HEMAV\Agro\Bloque 2 Matlab y C Sharp\IPS\Espectrometre\Entregables Algerri-Balaguer\Vol 1 Espectrometre.xlsx';
 
 [~,~,raw]=xlsread(pathDatosRdspc); % Extraemos datos en crudo de la hoja 1 (para los datos originales)
 [~,sheets]=xlsfinfo(pathDatosRdspc); % Nombres de las hojas

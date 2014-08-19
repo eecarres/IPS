@@ -148,8 +148,12 @@ set(handles.rdbRainbow,'value',0);
 
 handles.opcionIndice=1;
 
+%% Cargamos las configuraciones de reflectancias desde el Excel de la base de datos:
+[~,configuracionesReflectancias]=xlsfinfo('DB_folder/Configuracion_Reflectancias_DB.xlsx');
 
-%% Establecemos los valores de las reflectancias de cada banda
+set(handles.popReflectancias,'String',configuracionesReflectancias);
+
+%% Establecemos los valores de las reflectancias de cada banda (primero se cargan las anteriores y si no es posible las estándar)
 
 try
     set(handles.edit_ref_blanco_master,'String',num2str(referenciasCalibracion(1)));
@@ -1898,3 +1902,52 @@ function btnVolver_Callback(hObject, eventdata, handles)
 close NDRVI_Menu_Multibanda_Single;
 NDRVI_Main(handles.indiceProyecto);
 
+
+
+
+function popReflectancias_Callback(hObject, eventdata, handles)
+%%  Cambiamos las reflectancias dependiendo de la opción seleccionada:
+procesoCambioReflectancias=waitbar(0,'Cambiando Reflectancias');
+configuracionesPosibles=get(handles.popReflectancias,'String');
+numConfiguracionSeleccionada=get(handles.popReflectancias,'Value');
+
+waitbar(0.25,procesoCambioReflectancias,'Cambiando Reflectancias');
+reflectancias=xlsread('DB_folder/Configuracion_Reflectancias_DB.xlsx',char(configuracionesPosibles(numConfiguracionSeleccionada)),'C1:C18');
+
+waitbar(0.75,procesoCambioReflectancias,'Cambiando Reflectancias');
+set(handles.edit_ref_blanco_master,'String',num2str(reflectancias(1)));
+set(handles.edit_ref_gris_master,'String',num2str(reflectancias(2)));
+set(handles.edit_ref_negro_master,'String',num2str(reflectancias(3)));
+
+set(handles.edit_ref_blanco_1,'String',num2str(reflectancias(4)));
+set(handles.edit_ref_gris_1,'String',num2str(reflectancias(5)));
+set(handles.edit_ref_negro_1,'String',num2str(reflectancias(6)));
+
+set(handles.edit_ref_blanco_2,'String',num2str(reflectancias(7)));
+set(handles.edit_ref_gris_2,'String',num2str(reflectancias(8)));
+set(handles.edit_ref_negro_2,'String',num2str(reflectancias(9)));
+
+set(handles.edit_ref_blanco_3,'String',num2str(reflectancias(10)));
+set(handles.edit_ref_gris_3,'String',num2str(reflectancias(11)));
+set(handles.edit_ref_negro_3,'String',num2str(reflectancias(12)));
+
+set(handles.edit_ref_blanco_4,'String',num2str(reflectancias(13)));
+set(handles.edit_ref_gris_4,'String',num2str(reflectancias(14)));
+set(handles.edit_ref_negro_4,'String',num2str(reflectancias(15)));
+
+set(handles.edit_ref_blanco_5,'String',num2str(reflectancias(16)));
+set(handles.edit_ref_gris_5,'String',num2str(reflectancias(17)));
+set(handles.edit_ref_negro_5,'String',num2str(reflectancias(18)));
+close(procesoCambioReflectancias);
+
+% --- Executes during object creation, after setting all properties.
+function popReflectancias_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to popReflectancias (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
