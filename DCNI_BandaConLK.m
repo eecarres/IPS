@@ -1,4 +1,4 @@
-function [varargout] = DCNI_Multibanda (R730,R710,R670,iteracion,chkImagenes,chkProceso,tipoCmap,boolHist,status_cuad,cuad_div,rgb_g_limits,auxiliar_limits,status_suelo,check_aux,varargin)
+function [varargout] = DCNI_Multibanda (R720,R700,R670,iteracion,chkImagenes,chkProceso,tipoCmap,boolHist,status_cuad,cuad_div,rgb_g_limits,auxiliar_limits,status_suelo,check_aux,varargin)
 %---------------------------------------------------------------%
 %    SW de Obtencion de NDVI a partir de irradiancia (Lk)
 %---------------------------------------------------------------%
@@ -16,8 +16,8 @@ function [varargout] = DCNI_Multibanda (R730,R710,R670,iteracion,chkImagenes,chk
 
 
 %% Calcular valores NDVI
-A=R730.LK;
-B=R710.LK;
+A=R720.LK;
+B=R700.LK;
 C=R670.LK;
 
  ima= (((A-B)./(B-C))./(A-C+0.003));
@@ -191,7 +191,7 @@ if strcmp(choice,'Sí')==1
    
 end
 else
-    path=char(R730.path(iteracion));
+    path=char(R720.path(iteracion));
 [~, name_im, ~] = fileparts(path);
 
  

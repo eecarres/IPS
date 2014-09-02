@@ -737,13 +737,13 @@ end
 
 %% Sustituimos algunos índices en caso de no existir en la configuración
 
-if isempty(R780)
-    R780=R800;
-end
-
-if isempty(R730)
-    R730=R720;
-end
+% if isempty(R780)
+%     R780=R800;
+% end
+% 
+% if isempty(R730)
+%     R730=R720;
+% end
 
 Bandas=handles.bandas;
 
@@ -916,11 +916,11 @@ else
             
             % Calculamos DCNI si se ha seleccionado la opción
             if get(handles.chkDCNI,'Value')==1              
-                                    if isempty(R730) || isempty(R710) || isempty(R670)
+                                    if isempty(R730) || isempty(R700) || isempty(R670)
                                                         msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice DCNI');
                                                         return;
                                     else
-                                        DCNI_Actual=DCNI_BandaConLK(R730,R710,R670,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
+                                        DCNI_Actual=DCNI_BandaConLK(R730,R700,R670,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
                                         numBandas=numBandas+1;
                                         dataImProcesada(:,:,numBandas)=DCNI_Actual*1000;
                                                     if i==1

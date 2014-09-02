@@ -187,7 +187,7 @@ if strcmp(choice,'Sí')==1
    
 end
 else
-    path=char(R530.path(iteracion));
+    path=char(R550.path(iteracion));
 [~, name_im, ~] = fileparts(path);
 
 
