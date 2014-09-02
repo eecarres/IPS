@@ -683,6 +683,51 @@ switch configTetracam
                    vectorOrden=[2 3 4 5 6 1];
                    bandasProyecto=[R530 R570 R670 R710 R730 R780];
                    
+                   case 'AB F2 C1'
+                   R800=handles.Master;
+                   R800.banda=800;
+                   
+                   R450=handles.B1;
+                   R450.banda=450;
+                   
+                   R550=handles.B2;
+                   R550.banda=550;
+                   
+                   R670=handles.B3;
+                   R670.banda=670;
+                   
+                   R700=handles.B4;
+                   R700.banda=700;
+                   
+                   R730=handles.B5;  
+                   R730.banda=730;
+                   
+                   vectorOrden=[2 3 4 5 6 1];
+                   bandasProyecto=[R450 R550 R670 R700 R730 R800];
+                   
+                   
+                   case 'AB F2 C2'
+                   R780=handles.Master;
+                   R780.banda=780;
+                   
+                   R530=handles.B1;
+                   R530.banda=530;
+                   
+                   R570=handles.B2;
+                   R570.banda=570;
+                   
+                   R670=handles.B3;
+                   R670.banda=670;
+                   
+                   R720=handles.B4;
+                   R720.banda=720;
+                   
+                   R950=handles.B5;  
+                   R950.banda=950;
+                   
+                   vectorOrden=[2 3 4 5 1 6];
+                   bandasProyecto=[R530 R570 R670 R710 R730 R780];
+                   
     otherwise
         
                      msgbox('Has seleccionado una configuración incorrecta. Comprueba que se haya añadido al Excel y al código','Cambio de configuración TetraCam');
@@ -841,7 +886,21 @@ else
          
          
          % Calculamos NDVI si se ha seleccionado la opción
-            if get(handles.chkNDVI,'Value')==1   
+            if get(handles.chkNDVI800,'Value')==1   
+                                 if isempty(R670) || isempty(R800) 
+                                    msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice NDVI');
+                                    return;
+                                else
+                                          NDVI_Actual=NDVI_BandaConLK(R670,R800,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
+                                            numBandas=numBandas+1;
+                                             dataImProcesada(:,:,numBandas)=NDVI_Actual*1000;
+                                                         if i==1
+                                                        fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': NDVI - 800']);
+                                                         end
+                                 end
+            end    
+            % Calculamos NDVI si se ha seleccionado la opción
+            if get(handles.chkNDVI780,'Value')==1   
                                  if isempty(R670) || isempty(R780) 
                                     msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice NDVI');
                                     return;
@@ -850,10 +909,10 @@ else
                                             numBandas=numBandas+1;
                                              dataImProcesada(:,:,numBandas)=NDVI_Actual*1000;
                                                          if i==1
-                                                        fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': NDVI']);
+                                                        fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': NDVI - 780']);
                                                          end
                                  end
-            end    
+            end 
             
             % Calculamos DCNI si se ha seleccionado la opción
             if get(handles.chkDCNI,'Value')==1              
@@ -899,6 +958,69 @@ else
                                        end
                 end
             end
+            
+            % Calculamos MCARI si se ha seleccionado la opción
+            if get(handles.chkMCARI,'Value')==1       
+                if isempty(R550) || isempty(R670) || isempty(R700)
+                    msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice MCARI');
+                    return;
+                else
+                        MCARI=MCARI_BandaConLK(R550,R670,R700,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
+                        numBandas=numBandas+1;
+                        dataImProcesada(:,:,numBandas)=(MCARI)*1000;
+                                       if i==1
+                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': MCARI']);
+                                       end
+                end
+            end
+            
+            % Calculamos MCARI2 si se ha seleccionado la opción
+            if get(handles.chkMCARI2,'Value')==1       
+                if isempty(R550) || isempty(R670) || isempty(R800)
+                    msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice MCARI2');
+                    return;
+                else
+                        MCARI2=MCARI2_BandaConLK(R550,R670,R800,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
+                        numBandas=numBandas+1;
+                        dataImProcesada(:,:,numBandas)=(MCARI2)*1000;
+                                       if i==1
+                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': MCARI2']);
+                                       end
+                end
+            end
+            
+            % Calculamos TVI si se ha seleccionado la opción %% SE ESTA
+            % CAMBIANDO EL PROGRAMA PARA QUE PUEDA USARSE CON R730!!!!
+            if get(handles.chkTVI,'Value')==1       
+                if isempty(R550) || isempty(R670) || isempty(R730)
+                    msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice TVI');
+                    return;
+                else
+                        TVI=TVI_BandaConLK(R550,R670,R730,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
+                        numBandas=numBandas+1;
+                        dataImProcesada(:,:,numBandas)=(TVI)*1000;
+                                       if i==1
+                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': TVI']);
+                                       end
+                end
+            end
+            
+            % Calculamos MTVI2 si se ha seleccionado la opción
+            if get(handles.chkMTVI2,'Value')==1       
+                if isempty(R550) || isempty(R670) || isempty(R800)
+                    msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice MTVI2');
+                    return;
+                else
+                        MTVI2=MTVI2_BandaConLK(R550,R670,R800,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
+                        numBandas=numBandas+1;
+                        dataImProcesada(:,:,numBandas)=(MTVI2)*1000;
+                                       if i==1
+                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': MTVI2']);
+                                       end
+                end
+            end
+      
+            
             
              
          
@@ -1827,13 +1949,13 @@ function edit_calib_negro_master_Callback(hObject, eventdata, handles)
 %        str2double(get(hObject,'String')) returns contents of edit_calib_negro_master as a double
 
 
-% --- Executes on button press in chkNDVI.
-function chkNDVI_Callback(hObject, eventdata, handles)
-% hObject    handle to chkNDVI (see GCBO)
+% --- Executes on button press in chkNDVI780.
+function chkNDVI780_Callback(hObject, eventdata, handles)
+% hObject    handle to chkNDVI780 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hint: get(hObject,'Value') returns toggle state of chkNDVI
+% Hint: get(hObject,'Value') returns toggle state of chkNDVI780
 
 
 % --- Executes on button press in chkDCNI.
@@ -1976,3 +2098,48 @@ function popReflectancias_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+
+% --- Executes on button press in chkMCARI.
+function chkMCARI_Callback(hObject, eventdata, handles)
+% hObject    handle to chkMCARI (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of chkMCARI
+
+
+% --- Executes on button press in chkMCARI2.
+function chkMCARI2_Callback(hObject, eventdata, handles)
+% hObject    handle to chkMCARI2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of chkMCARI2
+
+
+% --- Executes on button press in chkTVI.
+function chkTVI_Callback(hObject, eventdata, handles)
+% hObject    handle to chkTVI (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of chkTVI
+
+
+% --- Executes on button press in chkMTVI2.
+function chkMTVI2_Callback(hObject, eventdata, handles)
+% hObject    handle to chkMTVI2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of chkMTVI2
+
+
+% --- Executes on button press in chkNDVI800.
+function chkNDVI800_Callback(hObject, eventdata, handles)
+% hObject    handle to chkNDVI800 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of chkNDVI800
