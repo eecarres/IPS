@@ -1021,6 +1021,36 @@ else
             end
       
             
+            % Calculamos NTest1 si se ha seleccionado la opción
+            if get(handles.chkNtest1,'Value')==1       
+                if isempty(R670) || isempty(R950)
+                    msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice Ntest1');
+                    return;
+                else
+                        Ntest1=Ntest1_BandaConLK(R670,R950,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
+                        numBandas=numBandas+1;
+                        dataImProcesada(:,:,numBandas)=(Ntest1)*1000;
+                                       if i==1
+                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': Ntest1']);
+                                       end
+                end
+            end
+            
+            
+            % Calculamos Ntest2 si se ha seleccionado la opción
+            if get(handles.chkNtest2,'Value')==1       
+                if  isempty(R670) || isempty(R950)
+                    msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice Ntest2');
+                    return;
+                else
+                        Ntest2=Ntest2_BandaConLK(R670,R950,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
+                        numBandas=numBandas+1;
+                        dataImProcesada(:,:,numBandas)=(Ntest2)*1000;
+                                       if i==1
+                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': Ntest2']);
+                                       end
+                end
+            end
             
              
          
@@ -2143,3 +2173,21 @@ function chkNDVI800_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of chkNDVI800
+
+
+% --- Executes on button press in chkNTest2.
+function chkNTest2_Callback(hObject, eventdata, handles)
+% hObject    handle to chkNTest2 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of chkNTest2
+
+
+% --- Executes on button press in chkNTest1.
+function chkNTest1_Callback(hObject, eventdata, handles)
+% hObject    handle to chkNTest1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of chkNTest1
