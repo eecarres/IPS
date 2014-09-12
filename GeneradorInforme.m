@@ -66,14 +66,19 @@ end
 set(handles.lstImagenes,'String',nombresLista);
 end
 
+%% Cargar las bandas y su orden para CIR del proyecto:
+nombreProyecto=strsplit(pathProyecto,'/'); % Sacamos el nombre del path
+nombreProyecto=nombreProyecto{3};
+load(['C:/Agromav IPS/',nombreProyecto,'/Informe/',nombreProyecto,'.mat']); % Cargamos el archivo con la info del proyecto;
+bandasOrdenadas=[Bandas(vectorOrden(1)) Bandas(vectorOrden(2)) Bandas(vectorOrden(3)) Bandas(vectorOrden(4)) Bandas(vectorOrden(5)) Bandas(vectorOrden(6))];% Ordenamos las bandas
 
+set(handles.popIR,'String',bandasOrdenadas);
+set(handles.popR,'String',bandasOrdenadas);
+set(handles.popG,'String',bandasOrdenadas);
 
-
-% Update handles structure
 guidata(hObject, handles);
 
-% UIWAIT makes GeneradorInforme wait for user response (see UIRESUME)
-% uiwait(handles.figure1);
+
 
 
 % --- Outputs from this function are returned to the command line.
@@ -116,11 +121,104 @@ nombreProyecto=nombreProyecto(2:end);
 
 pathProyecto=[handles.pathProyecto,'/Tiffs 16 bits para procesar/6 bandes'];
 %Generamos el string de llamada al informe
-save([handles.pathProyecto,'/Informe/',nombreProyecto,'AUX.mat'], 'nombreProyecto','nombreImagen','pathProyecto');
+
+bandaIR=get(handles.popIR,'Value');
+bandaR=get(handles.popR,'Value');
+bandaG=get(handles.popG,'Value');
+
+CIR=[bandaIR bandaR bandaG];
+
+save([handles.pathProyecto,'/Informe/',nombreProyecto,'AUX.mat'], 'nombreProyecto','nombreImagen','pathProyecto','CIR');
 
 load ([handles.pathProyecto,'/Informe/',nombreProyecto,'AUX.mat']);
 
 uiwait(helpdlg(['Arrastra Matlab los archivos ',nombreProyecto,'.mat (tanto el normal como el AUX)']))
 
 
-publish('Informe.m','codeToEvaluate','Informe(nombreProyecto,pathProyecto,nombreImagen)','showCode',false,'outputDir',['C:/Agromav IPS/', nombreProyecto,'/Informe']);
+
+
+
+% --- Executes on selection change in popIR.
+function popIR_Callback(hObject, eventdata, handles)
+% hObject    handle to popIR (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns popIR contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from popIR
+
+
+% --- Executes during object creation, after setting all properties.
+function popIR_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to popIR (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in popR.
+function popR_Callback(hObject, eventdata, handles)
+% hObject    handle to popR (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns popR contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from popR
+
+
+% --- Executes during object creation, after setting all properties.
+function popR_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to popR (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on selection change in popG.
+function popG_Callback(hObject, eventdata, handles)
+% hObject    handle to popG (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: contents = cellstr(get(hObject,'String')) returns popG contents as cell array
+%        contents{get(hObject,'Value')} returns selected item from popG
+
+
+% --- Executes during object creation, after setting all properties.
+function popG_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to popG (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: popupmenu controls usually have a white background on Windows.
+%       See ISPC and COMPUTER.
+if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on button press in btnInforme.
+function btnInforme_Callback(hObject, eventdata, handles)
+%Nombre de la imagen
+nombresImagenes=get(handles.lstImagenes,'string');
+nombreImagen=char(nombresImagenes(get(handles.lstImagenes,'value'),:))  ;
+nombreImagen=strtrim(nombreImagen);
+%Sacamos el nombre del proyecto
+[direccion,nombreProyecto]=strtok(handles.pathProyecto,'/');
+[direccion,nombreProyecto]=strtok(nombreProyecto,'/');
+nombreProyecto=nombreProyecto(2:end);
+
+
+load ([handles.pathProyecto,'/Informe/',nombreProyecto,'AUX.mat']);
+
+publish('Informe.m','codeToEvaluate','Informe(nombreProyecto,pathProyecto,nombreImagen,CIR)','showCode',false,'outputDir',['C:/Agromav IPS/', nombreProyecto,'/Informe']);

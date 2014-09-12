@@ -592,6 +592,11 @@ indiceProyecto=handles.indiceProyecto;
 save ('ultimoProyecto', 'referenciasCalibracion', 'pathProyecto','indiceProyecto');
 
 
+
+%% Aqui se definen las configuraciones disponibles de TetraCam. VectorOrden tiene que decir que banda es cual si las ordenamos de menos a mas LDO, y bandasProyecto es un simple vector que 
+%% contiene todos los objetos banda para poder emplearlos luego (tienen que
+%% estar ordenados o dará fallos
+
 configTetracam=get(handles.lblConfig,'String');
 switch configTetracam
                    
@@ -726,7 +731,7 @@ switch configTetracam
                    R950.banda=950;
                    
                    vectorOrden=[2 3 4 5 1 6];
-                   bandasProyecto=[R530 R570 R670 R710 R730 R780];
+                   bandasProyecto=[R530 R570 R670 R720 R780 R950];
                    
     otherwise
         
@@ -754,7 +759,7 @@ Bandas=handles.bandas;
 [direccion,nombreProyecto]=strtok(handles.pathProyecto,'/');
 [direccion,nombreProyecto]=strtok(nombreProyecto,'/');
 nombreProyecto=nombreProyecto(2:end);
-save([handles.pathProyecto,'/Informe/',nombreProyecto,'.mat'],'configTetracam','bandasProyecto','Bandas');
+save([handles.pathProyecto,'/Informe/',nombreProyecto,'.mat'],'configTetracam','bandasProyecto','Bandas','vectorOrden');
 
 
 
@@ -885,7 +890,7 @@ else
          
          
          
-         % Calculamos NDVI si se ha seleccionado la opción
+         % Calculamos NDVI 800 si se ha seleccionado la opción
             if get(handles.chkNDVI800,'Value')==1   
                                  if isempty(R670) || isempty(R800) 
                                     msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice NDVI');
@@ -899,7 +904,7 @@ else
                                                          end
                                  end
             end    
-            % Calculamos NDVI si se ha seleccionado la opción
+            % Calculamos NDVI 780 si se ha seleccionado la opción
             if get(handles.chkNDVI780,'Value')==1   
                                  if isempty(R670) || isempty(R780) 
                                     msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice NDVI');
@@ -1022,12 +1027,12 @@ else
       
             
             % Calculamos NTest1 si se ha seleccionado la opción
-            if get(handles.chkNtest1,'Value')==1       
+            if get(handles.chkNTest1,'Value')==1       
                 if isempty(R670) || isempty(R950)
                     msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice Ntest1');
                     return;
                 else
-                        Ntest1=Ntest1_BandaConLK(R670,R950,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
+                        Ntest1=NTest1_BandaConLK(R670,R950,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
                         numBandas=numBandas+1;
                         dataImProcesada(:,:,numBandas)=(Ntest1)*1000;
                                        if i==1
@@ -1038,12 +1043,12 @@ else
             
             
             % Calculamos Ntest2 si se ha seleccionado la opción
-            if get(handles.chkNtest2,'Value')==1       
+            if get(handles.chkNTest2,'Value')==1       
                 if  isempty(R670) || isempty(R950)
                     msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice Ntest2');
                     return;
                 else
-                        Ntest2=Ntest2_BandaConLK(R670,R950,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
+                        Ntest2=NTest2_BandaConLK(R670,R950,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
                         numBandas=numBandas+1;
                         dataImProcesada(:,:,numBandas)=(Ntest2)*1000;
                                        if i==1
