@@ -1,0 +1,4 @@
+DroneSpec2_18
+Started at: 20140711_1719158
+Computer speed: 127
+Operating system: Windows 8.1

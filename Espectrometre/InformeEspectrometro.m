@@ -2,7 +2,7 @@
 % *Informe calidad Radioespectrómetro*
 %%
 % 
-% <<C:\Users\Ethan\Documents\MATLAB\HEMAV\Agro\Bloque 2 Matlab y C Sharp\Espectrometre/1 Logo Final 3v.PNG>>
+% <<C:\Users\Ethan\Documents\MATLAB\HEMAV\Agro\Bloque 2 Matlab y C Sharp\Espectrometre/1 Logo Final 3v.png>>
 
 %banda1=R670
 %banda2=R780
@@ -24,7 +24,7 @@ calidadGND; %Llamamos a la función que crea los plots
 %% *Evaluación de longitud de onda R670 en crudo*
 % 
 %Leemos el Excel con los datos
-pathDatosRdspc='C:\Users\Ethan\Documents\MATLAB\HEMAV\Agro\Bloque 2 Matlab y C Sharp\IPS\Espectrometre\Entregables Algerri-Balaguer\Vol 1 Espectrometre.xlsx';
+pathDatosRdspc='C:\Users\Ethan\Documents\MATLAB\HEMAV\Agro\Bloque 2 Matlab y C Sharp\IPS\Espectrometre\Entregables AB F2\Reflectancias Vuelo 1 - Campo 510.xlsx';
 
 [~,~,raw]=xlsread(pathDatosRdspc); % Extraemos datos en crudo de la hoja 1 (para los datos originales)
 [~,sheets]=xlsfinfo(pathDatosRdspc); % Nombres de las hojas

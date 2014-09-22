@@ -1,30 +1,5 @@
 function varargout = AgroMavEspectrometer(varargin)
-% AGROMAVESPECTROMETER MATLAB code for AgroMavEspectrometer.fig
-%      AGROMAVESPECTROMETER, by itself, creates a new AGROMAVESPECTROMETER or raises the existing
-%      singleton*.
-%
-%      H = AGROMAVESPECTROMETER returns the handle to a new AGROMAVESPECTROMETER or the handle to
-%      the existing singleton*.
-%
-%      AGROMAVESPECTROMETER('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in AGROMAVESPECTROMETER.M with the given input arguments.
-%
-%      AGROMAVESPECTROMETER('Property','Value',...) creates a new AGROMAVESPECTROMETER or raises the
-%      existing singleton*.  Starting from the left, property value pairs are
-%      applied to the GUI before AgroMavEspectrometer_OpeningFcn gets called.  An
-%      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to AgroMavEspectrometer_OpeningFcn via varargin.
-%
-%      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
-%      instance to run (singleton)".
-%
-% See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help AgroMavEspectrometer
-
-% Last Modified by GUIDE v2.5 30-Jul-2014 12:03:19
-
-% Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
@@ -174,6 +149,7 @@ SAVI_05=1.5*(     (R800-R670)./  (R800+R670+0.5)  );
 RDVI=(R800-R670)  ./  sqrt(R800+R670);
 DCNI=  (R720-R700) ./ (R700-R670)   ./  (R720-R670 + 0.03);
 MCARI= (    (R700-R670) - 0.2*(R700-R550)    ) .* (R700./R670);
+MCARI2=1.5*(  2.5*(R800-R670) - 1.3*(R800-R550) )    ./    ( sqrt( (2*R800+1).^2 - (6*R800 - 5*sqrt(R670)) -0.5  ));
 TCARI=3*(    (     (R700-R670)-0.2*(R700-R550)   )  .*(R700/R670) ) ;
 OSAVI=1.16*(     (R800-R670)./  (R800+R670+0.16)  );
 TCARI_OSAVI=TCARI ./ OSAVI;
@@ -181,8 +157,10 @@ RVI= R800 ./ R670;
 PRI=(R570-R531) ./ (R570+R531);
 NPCI=(R680-R430)   ./   (R680+R430);
 TVI= 0.5*(120*(R750-R550)-200*(R670-R550));
+MTVI2=1.5*(1.2*(R800-R550) - 2.5*(R670-R550) )   ./      ( sqrt( (2*R800+1).^2 - (6*R800 - 5*sqrt(R670)) -0.5  )) ;
 NPQI= (R415-R435)  ./  (R415+R435);
 ZM=  R750 ./  R710;
+
 
 
 
@@ -229,7 +207,10 @@ xlswrite(pathExcel,{'NPQI'},hojaIndices,'A18');
 xlswrite(pathExcel,NPQI,hojaIndices,'B18');
 xlswrite(pathExcel,{'ZM'},hojaIndices,'A19');
 xlswrite(pathExcel,ZM,hojaIndices,'B19');
-
+xlswrite(pathExcel,{'MTVI2'},hojaIndices,'A20');
+xlswrite(pathExcel,MTVI2,hojaIndices,'B20');
+xlswrite(pathExcel,{'MCARI2'},hojaIndices,'A21');
+xlswrite(pathExcel,MCARI2,hojaIndices,'B21');
 close(procesoExcel);
 
 function edtDatosRadio_Callback(hObject, eventdata, handles)

@@ -1,0 +1,51 @@
+Integrated Camera,size=640x480,fps=15
+Integrated Camera,size=640x480,fps=30
+Integrated Camera,size=640x360,fps=15
+Integrated Camera,size=640x360,fps=30
+Integrated Camera,size=352x288,fps=15
+Integrated Camera,size=352x288,fps=30
+Integrated Camera,size=320x240,fps=15
+Integrated Camera,size=320x240,fps=30
+Integrated Camera,size=800x448,fps=1
+Integrated Camera,size=800x448,fps=15
+Integrated Camera,size=960x540,fps=1
+Integrated Camera,size=960x540,fps=10
+Integrated Camera,size=1280x720,fps=1
+Integrated Camera,size=1280x720,fps=10
+Integrated Camera,size=424x240,fps=15
+Integrated Camera,size=424x240,fps=30
+Integrated Camera,size=640x480,fps=15
+Integrated Camera,size=640x480,fps=30
+Integrated Camera,size=640x360,fps=15
+Integrated Camera,size=640x360,fps=30
+Integrated Camera,size=352x288,fps=15
+Integrated Camera,size=352x288,fps=30
+Integrated Camera,size=320x240,fps=15
+Integrated Camera,size=320x240,fps=30
+Integrated Camera,size=800x448,fps=1
+Integrated Camera,size=800x448,fps=15
+Integrated Camera,size=960x540,fps=1
+Integrated Camera,size=960x540,fps=10
+Integrated Camera,size=1280x720,fps=1
+Integrated Camera,size=1280x720,fps=10
+Integrated Camera,size=424x240,fps=15
+Integrated Camera,size=424x240,fps=30
+Integrated Camera,size=640x480,fps=15
+Integrated Camera,size=640x480,fps=30
+Integrated Camera,size=640x360,fps=15
+Integrated Camera,size=640x360,fps=30
+Integrated Camera,size=352x288,fps=15
+Integrated Camera,size=352x288,fps=30
+Integrated Camera,size=320x240,fps=15
+Integrated Camera,size=320x240,fps=30
+Integrated Camera,size=800x448,fps=15
+Integrated Camera,size=800x448,fps=30
+Integrated Camera,size=960x540,fps=15
+Integrated Camera,size=960x540,fps=30
+Integrated Camera,size=1280x720,fps=15
+Integrated Camera,size=1280x720,fps=30
+ThinkVantage Virtual Camera,size=320x240,fps=30
+ThinkVantage Virtual Camera,size=640x480,fps=30
+USB Video Capture Device,size=720x576,fps=25
+USB Video Capture Device,size=720x480,fps=30
+List of available cameras was generated at: 20130920_1134149

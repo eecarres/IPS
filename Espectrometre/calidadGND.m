@@ -1,3 +1,7 @@
+%% CALIDADGND
+
+%% Este script genera una evolución de la huella espectral de los blancos medidos con radioespectrómetro, a partir de los datos de los archivos
+% Spectrum del radioespectrómetro.
 
 Excel = actxserver ('Excel.Application'); 
 [nombreArchivos,path]=uigetfile('*.csv','Selecciona los archivos','Multiselect','on');
@@ -49,10 +53,10 @@ title('Evolución huella espectral cruda');
 
 %% Comprobamos que esten bien todas las medidas del espectrometro: en este caso la 9 hay que eliminarla ya que no tiene sentido
 
-datosGNDNum=datosGNDNum([1:8,10:end],:);
-figure('Name','Evolución huella espectral corregida');
-plot(LDONum,datosGNDNum);
-title('Evolución huella espectral corregida');
+% datosGNDNum=datosGNDNum([1:8,10:end],:);
+% figure('Name','Evolución huella espectral corregida');
+% plot(LDONum,datosGNDNum);
+% title('Evolución huella espectral corregida');
 %% Hay que escoger al azar unas cuantas LDO's y dibujar el grafico estilo Agus 
 
 [LDOsRandom,indices] = datasample(LDONum,8);
@@ -61,7 +65,8 @@ hold all;
 
 for i=1:numel(indices)
     
-    plot(1:(numel(nombreArchivos)-1),datosGNDNum(:,indices(i))', 'LineWidth',1 );
+    %plot(1:(numel(nombreArchivos)-1),datosGNDNum(:,indices(i))', 'LineWidth',1 );
+    plot(1:(numel(nombreArchivos)),datosGNDNum(:,indices(i))', 'LineWidth',1 );
     
 end
 legend(['R',num2str(LDOsRandom(1))],['R',num2str(LDOsRandom(2))],['R',num2str(LDOsRandom(3))],['R',num2str(LDOsRandom(4))],['R',num2str(LDOsRandom(5))],['R',num2str(LDOsRandom(6))],['R',num2str(LDOsRandom(7))],['R',num2str(LDOsRandom(8))]);

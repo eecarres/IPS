@@ -1,0 +1,8 @@
+COM17
+COM16
+5
+5
+USB Video Capture Device
+480
+576
+25
