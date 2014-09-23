@@ -22,7 +22,7 @@ function varargout = NDRVI_Main(varargin)
 
 % Edit the above text to modify the response to help NDRVI_Main
 
-% Last Modified by GUIDE v2.5 23-Jul-2014 09:50:11
+% Last Modified by GUIDE v2.5 22-Sep-2014 16:16:33
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -258,3 +258,12 @@ GeneradorInforme(path,indice);
 close NDRVI_Main;
 
 
+
+
+% --- Executes on button press in btnVisor.
+function btnVisor_Callback(hObject, eventdata, handles)
+proyectos=get(handles.lstProyectosExistentes,'String'); % Nombre del proyecto
+indice=get(handles.lstProyectosExistentes,'Value'); % Número de orden de proyecto (segun la lista)
+path=strcat('C:/Agromav IPS/',char(proyectos(indice,:))); % Path del proyecto
+NDRVI_Visor(path,indice);
+close NDRVI_Main;
