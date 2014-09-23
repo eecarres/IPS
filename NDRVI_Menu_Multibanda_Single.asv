@@ -497,6 +497,9 @@ varargout{1} = handles.output;
 
 % --- Executes on button press in btnProcesa.
 function btnProcesa_Callback(hObject, eventdata, handles)
+
+% Se guardan en los objetos Banda los valores de configuración escogidos
+% por el usuario
 handles.Master.valores=get(handles.popMaster,'Value');
 handles.B1.valores=get(handles.popB1,'Value');
 handles.B2.valores=get(handles.popB2,'Value');
@@ -587,6 +590,7 @@ R800=[];
 R910=[];
 R950=[];
 
+% Se guardan las últimas configuraciones de reflectancias empleadas
 referenciasCalibracion=[handles.Master.reflectancias handles.B1.reflectancias handles.B2.reflectancias handles.B3.reflectancias handles.B4.reflectancias handles.B5.reflectancias];
 pathProyecto=handles.pathProyecto;
 indiceProyecto=handles.indiceProyecto;
@@ -594,9 +598,9 @@ save ('ultimoProyecto', 'referenciasCalibracion', 'pathProyecto','indiceProyecto
 
 
 
-%% Aqui se definen las configuraciones disponibles de TetraCam. VectorOrden tiene que decir que banda es cual si las ordenamos de menos a mas LDO, y bandasProyecto es un simple vector que 
-%% contiene todos los objetos banda para poder emplearlos luego (tienen que
-%% estar ordenados o dará fallos
+%% Aqui se definen las configuraciones disponibles de TetraCam. VectorOrden tiene que decir que banda es cual si las ordenamos de menos a mas LDO, 
+%% y bandasProyecto es un simple vector que  contiene todos los objetos banda para poder emplearlos luego (tienen que
+%% estar ordenados o dará fallos)
 
 configTetracam=get(handles.lblConfig,'String');
 switch configTetracam
@@ -741,15 +745,6 @@ switch configTetracam
         
 end
 
-%% Sustituimos algunos índices en caso de no existir en la configuración
-
-% if isempty(R780)
-%     R780=R800;
-% end
-% 
-% if isempty(R730)
-%     R730=R720;
-% end
 
 Bandas=handles.bandas;
 
@@ -764,7 +759,7 @@ save([handles.pathProyecto,'/Informe/',nombreProyecto,'.mat'],'configTetracam','
 
 
 
-
+%% Iniciamos el informe de postprocesado
 
 fileID = fopen(strcat(handles.pathProyecto,'/Procesadas/Multi/','Informe de postprocesado.txt'),'w');
 fprintf(fileID,'%s \r\n',strcat('Directorio del proyecto: ',handles.pathProyecto));
@@ -839,7 +834,7 @@ else
            if i==1
                         maxBanda=max(max(dataImProcesada(:,:,j)));
                         minBanda=min(min(dataImProcesada(:,:,j)));
-                         fprintf(fileID,'%s \r\n',['Banda número ',num2str(j),': R',num2str(bandasProyecto(j).banda),'   Rango:(',num2str(maxBanda),' - ',num2str(minBanda)]);
+                         fprintf(fileID,'%s \r\n',['Banda número ',num2str(j),': R',num2str(bandasProyecto(j).banda),'   Rango:(',num2str(maxBanda),' - ',num2str(minBanda),')']);
           end
            
       end
@@ -903,7 +898,9 @@ else
                                             numBandas=numBandas+1;
                                              dataImProcesada(:,:,numBandas)=NDVI_Actual*1000;
                                                          if i==1
-                                                        fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': NDVI - 800']);
+                                                             maxBanda=max(max(dataImProcesada(:,:,numBandas)));
+                                                             minBanda=min(min(dataImProcesada(:,:,numBandas)));
+                                                        fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': NDVI - 800','   Rango:(',num2str(maxBanda),' - ',num2str(minBanda),')']);
                                                          end
                                  end
             end    
@@ -917,7 +914,9 @@ else
                                             numBandas=numBandas+1;
                                              dataImProcesada(:,:,numBandas)=NDVI_Actual*1000;
                                                          if i==1
-                                                        fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': NDVI - 780']);
+                                                            maxBanda=max(max(dataImProcesada(:,:,numBandas)));
+                                                             minBanda=min(min(dataImProcesada(:,:,numBandas)));
+                                                        fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': NDVI - 780','   Rango:(',num2str(maxBanda),' - ',num2str(minBanda),')']);
                                                          end
                                  end
             end 
@@ -932,7 +931,9 @@ else
                                         numBandas=numBandas+1;
                                         dataImProcesada(:,:,numBandas)=DCNI_Actual*1000;
                                                     if i==1
-                                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': DCNI']);
+                                                        maxBanda=max(max(dataImProcesada(:,:,numBandas)));
+                                                             minBanda=min(min(dataImProcesada(:,:,numBandas)));
+                                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': DCNI','   Rango:(',num2str(maxBanda),' - ',num2str(minBanda),')']);
                                                     end
                                     end
             end  
@@ -947,7 +948,9 @@ else
                                         numBandas=numBandas+1;
                                         dataImProcesada(:,:,numBandas)=TCARI_Actual*1000;
                                                        if i==1
-                                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': TCARI']);
+                                                           maxBanda=max(max(dataImProcesada(:,:,numBandas)));
+                                                             minBanda=min(min(dataImProcesada(:,:,numBandas)));
+                                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': TCARI','   Rango:(',num2str(maxBanda),' - ',num2str(minBanda),')']);
                                                        end
                                 end
             end
@@ -962,7 +965,9 @@ else
                         numBandas=numBandas+1;
                         dataImProcesada(:,:,numBandas)=(PRI_Actual+1)*1000;
                                        if i==1
-                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': PRI']);
+                                           maxBanda=max(max(dataImProcesada(:,:,numBandas)));
+                                                             minBanda=min(min(dataImProcesada(:,:,numBandas)));
+                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': PRI','   Rango:(',num2str(maxBanda),' - ',num2str(minBanda),')']);
                                        end
                 end
             end
@@ -977,7 +982,9 @@ else
                         numBandas=numBandas+1;
                         dataImProcesada(:,:,numBandas)=(MCARI)*1000;
                                        if i==1
-                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': MCARI']);
+                                           maxBanda=max(max(dataImProcesada(:,:,numBandas)));
+                                                             minBanda=min(min(dataImProcesada(:,:,numBandas)));
+                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': MCARI','   Rango:(',num2str(maxBanda),' - ',num2str(minBanda),')']);
                                        end
                 end
             end
@@ -992,7 +999,9 @@ else
                         numBandas=numBandas+1;
                         dataImProcesada(:,:,numBandas)=(MCARI2)*1000;
                                        if i==1
-                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': MCARI2']);
+                                           maxBanda=max(max(dataImProcesada(:,:,numBandas)));
+                                                             minBanda=min(min(dataImProcesada(:,:,numBandas)));
+                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': MCARI2','   Rango:(',num2str(maxBanda),' - ',num2str(minBanda),')']);
                                        end
                 end
             end
@@ -1008,7 +1017,9 @@ else
                         numBandas=numBandas+1;
                         dataImProcesada(:,:,numBandas)=(TVI)*1000;
                                        if i==1
-                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': TVI']);
+                                           maxBanda=max(max(dataImProcesada(:,:,numBandas)));
+                                                             minBanda=min(min(dataImProcesada(:,:,numBandas)));
+                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': TVI','   Rango:(',num2str(maxBanda),' - ',num2str(minBanda),')']);
                                        end
                 end
             end
@@ -1023,7 +1034,9 @@ else
                         numBandas=numBandas+1;
                         dataImProcesada(:,:,numBandas)=(MTVI2)*1000;
                                        if i==1
-                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': MTVI2']);
+                                           maxBanda=max(max(dataImProcesada(:,:,numBandas)));
+                                                             minBanda=min(min(dataImProcesada(:,:,numBandas)));
+                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': MTVI2','   Rango:(',num2str(maxBanda),' - ',num2str(minBanda),')']);
                                        end
                 end
             end
@@ -1039,7 +1052,9 @@ else
                         numBandas=numBandas+1;
                         dataImProcesada(:,:,numBandas)=(Ntest1)*1000;
                                        if i==1
-                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': Ntest1']);
+                                           maxBanda=max(max(dataImProcesada(:,:,numBandas)));
+                                                             minBanda=min(min(dataImProcesada(:,:,numBandas)));
+                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': Ntest1','   Rango:(',num2str(maxBanda),' - ',num2str(minBanda),')']);
                                        end
                 end
             end
@@ -1055,7 +1070,9 @@ else
                         numBandas=numBandas+1;
                         dataImProcesada(:,:,numBandas)=(Ntest2)*1000;
                                        if i==1
-                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': Ntest2']);
+                                           maxBanda=max(max(dataImProcesada(:,:,numBandas)));
+                                                             minBanda=min(min(dataImProcesada(:,:,numBandas)));
+                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': Ntest2','   Rango:(',num2str(maxBanda),' - ',num2str(minBanda),')']);
                                        end
                 end
             end
