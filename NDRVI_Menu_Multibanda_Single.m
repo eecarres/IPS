@@ -200,18 +200,6 @@ set(handles.edit_ref_negro_5,'String',num2str(0.05));
 
 end
 
-%% Exactamente no se a que se refiere
-handles.rgb_g_limits(1)=0; handles.rgb_g_limits(2)=handles.rgb_g_limits(1);
-handles.rgb_g_limits(3)=handles.rgb_g_limits(1); handles.rgb_g_limits(4)=handles.rgb_g_limits(1);
-handles.rgb_g_limits(5)=handles.rgb_g_limits(1); handles.rgb_g_limits(6)=handles.rgb_g_limits(1);
-
-handles.status_suelo=0;
-
-handles.auxiliar_limits(1)=0; handles.auxiliar_limits(2)=handles.auxiliar_limits(1);
-handles.auxiliar_limits(3)=handles.auxiliar_limits(1); handles.auxiliar_limits(4)=handles.auxiliar_limits(1);
-handles.auxiliar_limits(5)=handles.auxiliar_limits(1); handles.auxiliar_limits(6)=handles.auxiliar_limits(1);
-
-handles.check_aux(1)=0; handles.check_aux(2)=handles.check_aux(1); handles.check_aux(3)=handles.check_aux(1);
 
 guidata(hObject, handles);
 
@@ -511,9 +499,7 @@ handles.B4.calib=[handles.Master.dentroIm handles.Master.fueraIm];
 handles.B5.calib=[handles.Master.dentroIm handles.Master.fueraIm];
 
 
-cmap_rgb_g=get(handles.rdbGris,'Value');
-cmap_jet=get(handles.rdbJet,'Value');
-cmap_rb=get(handles.rdbRainbow,'Value');
+
 
 handles.Master.reflectancias(1)=str2double(get(handles.edit_ref_blanco_master,'String'));
 handles.Master.reflectancias(2)=str2double(get(handles.edit_ref_gris_master,'String'));
@@ -553,15 +539,10 @@ handles.B5.X1(1)=str2double(get(handles.edit_calib_blanco_5,'String'));
 handles.B5.X1(2)=str2double(get(handles.edit_calib_gris_5,'String'));
 handles.B5.X1(3)=str2double(get(handles.edit_calib_negro_5,'String'));
 
-status_hist=get(handles.chkHisto,'Value');
-status_cuad=get(handles.chkCuadr,'Value');
 
-if status_cuad==0
-    handles.cuad_div(1)=0;
-    handles.cuad_div(2)=handles.cuad_div(1);
-end
 
-opcion_cmap=[cmap_rgb_g cmap_jet cmap_rb];
+
+
 
 chkProceso=get(handles.chkProceso,'Value');
 chkImagenes=get(handles.chkImagenes,'Value');
@@ -887,7 +868,7 @@ else
                                     msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice NDVI');
                                     return;
                                 else
-                                          NDVI_Actual=NDVI_BandaConLK(R670,R800,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
+                                          NDVI_Actual=NDVI_BandaConLK(R670,R800,i,chkImagenes,chkProceso );                 
                                             numBandas=numBandas+1;
                                              dataImProcesada(:,:,numBandas)=NDVI_Actual*1000;
                                                          if i==1
@@ -903,7 +884,7 @@ else
                                     msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice NDVI');
                                     return;
                                 else
-                                          NDVI_Actual=NDVI_BandaConLK(R670,R780,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
+                                          NDVI_Actual=NDVI_BandaConLK(R670,R780,i,chkImagenes,chkProceso );                 
                                             numBandas=numBandas+1;
                                              dataImProcesada(:,:,numBandas)=NDVI_Actual*1000;
                                                          if i==1
@@ -920,7 +901,7 @@ else
                                                         msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice DCNI');
                                                         return;
                                     else
-                                        DCNI_Actual=DCNI_BandaConLK(R730,R700,R670,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
+                                        DCNI_Actual=DCNI_BandaConLK(R730,R700,R670,i,chkImagenes,chkProceso );                 
                                         numBandas=numBandas+1;
                                         dataImProcesada(:,:,numBandas)=DCNI_Actual*1000;
                                                     if i==1
@@ -937,7 +918,7 @@ else
                                     msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice TCARI');
                                     return;
                                 else
-                                       TCARI_Actual=TCARI_OSAVI_BandaConLK(R710,R670,R550,R780,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
+                                       TCARI_Actual=TCARI_OSAVI_BandaConLK(R710,R670,R550,R780,i,chkImagenes,chkProceso );                 
                                         numBandas=numBandas+1;
                                         dataImProcesada(:,:,numBandas)=TCARI_Actual*1000;
                                                        if i==1
@@ -954,7 +935,7 @@ else
                     msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice PRI');
                     return;
                 else
-                        PRI_Actual=PRI_BandaConLK(R530,R570,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
+                        PRI_Actual=PRI_BandaConLK(R530,R570,i,chkImagenes,chkProceso );                 
                         numBandas=numBandas+1;
                         dataImProcesada(:,:,numBandas)=(PRI_Actual+1)*1000;
                                        if i==1
@@ -971,7 +952,7 @@ else
                     msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice MCARI');
                     return;
                 else
-                        MCARI=MCARI_BandaConLK(R550,R670,R700,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
+                        MCARI=MCARI_BandaConLK(R550,R670,R700,i,chkImagenes,chkProceso );                 
                         numBandas=numBandas+1;
                         dataImProcesada(:,:,numBandas)=(MCARI)*1000;
                                        if i==1
@@ -988,7 +969,7 @@ else
                     msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice MCARI2');
                     return;
                 else
-                        MCARI2=MCARI2_BandaConLK(R550,R670,R800,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
+                        MCARI2=MCARI2_BandaConLK(R550,R670,R800,i,chkImagenes,chkProceso );                 
                         numBandas=numBandas+1;
                         dataImProcesada(:,:,numBandas)=(MCARI2)*1000;
                                        if i==1
@@ -1006,7 +987,7 @@ else
                     msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice TVI');
                     return;
                 else
-                        TVI=TVI_BandaConLK(R550,R670,R730,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
+                        TVI=TVI_BandaConLK(R550,R670,R730,i,chkImagenes,chkProceso );                 
                         numBandas=numBandas+1;
                         dataImProcesada(:,:,numBandas)=(TVI)*1000;
                                        if i==1
@@ -1023,7 +1004,7 @@ else
                     msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice MTVI2');
                     return;
                 else
-                        MTVI2=MTVI2_BandaConLK(R550,R670,R800,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
+                        MTVI2=MTVI2_BandaConLK(R550,R670,R800,i,chkImagenes,chkProceso );                 
                         numBandas=numBandas+1;
                         dataImProcesada(:,:,numBandas)=(MTVI2)*1000;
                                        if i==1
@@ -1041,7 +1022,7 @@ else
                     msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice Ntest1');
                     return;
                 else
-                        Ntest1=NTest1_BandaConLK(R670,R950,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
+                        Ntest1=NTest1_BandaConLK(R670,R950,i,chkImagenes,chkProceso );                 
                         numBandas=numBandas+1;
                         dataImProcesada(:,:,numBandas)=(Ntest1)*1000;
                                        if i==1
@@ -1059,7 +1040,7 @@ else
                     msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice Ntest2');
                     return;
                 else
-                        Ntest2=NTest2_BandaConLK(R670,R950,i,chkImagenes,chkProceso,opcion_cmap,status_hist,status_cuad,handles.cuad_div,handles.rgb_g_limits,handles.auxiliar_limits,handles.status_suelo,handles.check_aux);                 
+                        Ntest2=NTest2_BandaConLK(R670,R950,i,chkImagenes,chkProceso );                 
                         numBandas=numBandas+1;
                         dataImProcesada(:,:,numBandas)=(Ntest2)*1000;
                                        if i==1
