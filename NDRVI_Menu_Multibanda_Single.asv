@@ -1081,7 +1081,7 @@ else
                                        if i==1
                                            maxBanda=max(max(dataImProcesada(:,:,numBandas)));
                                                              minBanda=min(min(dataImProcesada(:,:,numBandas)));
-                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': FB2 Hemav','   Rango:(',num2str(maxBanda),' - ',num2str(minBanda),')']);
+                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': FB1 Hemav','   Rango:(',num2str(maxBanda),' - ',num2str(minBanda),')']);
                                        end
                 end
             end

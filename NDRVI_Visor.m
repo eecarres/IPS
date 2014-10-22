@@ -76,8 +76,13 @@ TiffActual = Tiff(pathImagen,'r+');
        
        numBandas=tamanoIm(3);% Encontramos el número de bandas de la imagen
        set(handles.lblBandas,'string',numBandas);
+       
        for i=1:numBandas
-           listaBandas(i,:)=['Banda ',num2str(i)];
+           if i>9
+           listaBandas(i,:)=['Banda ',num2str(i)]; % El fallo con más de 9 bandas viene porque intentamos guardar 8 caracteres en un vector de strings de 7 caracteres
+           else
+           listaBandas(i,:)=['Banda  ',num2str(i)];    
+           end
        end
        set(handles.lstBandas,'string',listaBandas);
        
@@ -113,7 +118,7 @@ TiffActual = Tiff(pathImagen,'r+');
        imhist(dataImOriginal(:,:,indiceBanda));
        
        axes(handles.axsImagen); %Mostramos la imagen
-       imshow(dataImOriginal(:,:,indiceBanda));
+       imshow(imadjust(dataImOriginal(:,:,indiceBanda)));
        
        switch colormapSeleccionado
            
