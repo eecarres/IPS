@@ -1,4 +1,4 @@
-function [varargout]= FB2_BandaConLK(R670,R780,R550,R450,i,chkImagenes,chkProceso )
+function [varargout]= FB2_BandaConLK(R670,R780,R550,R450,iteracion,chkImagenes,chkProceso )
 %---------------------------------------------------------------%
 %    SW de Obtencion de  Indice a partir de irradiancia (Lk)
 %---------------------------------------------------------------%
