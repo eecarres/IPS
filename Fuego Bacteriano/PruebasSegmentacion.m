@@ -4,9 +4,9 @@
 
 
 
-B=imread('D:\Proyectos\2014_09_27 Foc Bacteria alcarras\Tiffs MultiPage\TTC4859.tif','Index',2);
-G=imread('D:\Proyectos\2014_09_27 Foc Bacteria alcarras\Tiffs MultiPage\TTC4859.tif','Index',3);
-R=imread('D:\Proyectos\2014_09_27 Foc Bacteria alcarras\Tiffs MultiPage\TTC4859.tif','Index',4);
+B=imread('TTC4939.tif','Index',2);
+G=imread('TTC4939.tif','Index',3);
+R=imread('TTC4939.tif','Index',4);
 imshow([R,G,B]);
 
 
