@@ -163,6 +163,9 @@ for i=1:numImagenes(2)
             tiffBM.setTag(tagstruct);
             tiffBM.write(BM); 
             tiffBM.close;
+       
+%             BM=(BM)./max(max(BM)) .*(2^16);
+%             imwrite(BM,strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes/',name_im,'_0_AUX.tif')); % Prueba para abrir en Photoshop
             
             
         tiffB1= Tiff(strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes/',name_im,'_1.tif'),'w');
@@ -178,6 +181,9 @@ for i=1:numImagenes(2)
             tiffB1.write(B1); 
             tiffB1.close;
             
+%             imwrite(B1,strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes/',name_im,'_1_AUX.tif')); % Prueba para abrir en Photoshop
+            
+            
         tiffB2= Tiff(strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes/',name_im,'_2.tif'),'w');
             tagstruct.ImageLength = size(B2,1);
             tagstruct.ImageWidth = size(B2,2);
@@ -190,6 +196,9 @@ for i=1:numImagenes(2)
             tiffB2.setTag(tagstruct);
             tiffB2.write(B2); 
             tiffB2.close;
+            
+%             imwrite(B2,strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes/',name_im,'_2_AUX.tif')); % Prueba para abrir en Photoshop
+            
             
             tiffB3= Tiff(strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes/',name_im,'_3.tif'),'w');
             tagstruct.ImageLength = size(B3,1);
@@ -204,6 +213,10 @@ for i=1:numImagenes(2)
             tiffB3.write(B3); 
             tiffB3.close;
             
+%             imwrite(B3,strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes/',name_im,'_3_AUX.tif')); % Prueba para abrir en Photoshop
+            
+            
+            
             tiffB4= Tiff(strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes/',name_im,'_4.tif'),'w');
             tagstruct.ImageLength = size(B4,1);
             tagstruct.ImageWidth = size(B4,2);
@@ -217,6 +230,10 @@ for i=1:numImagenes(2)
             tiffB4.write(B4); 
             tiffB4.close;
             
+%             imwrite(B4,strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes/',name_im,'_4_AUX.tif')); % Prueba para abrir en Photoshop
+            
+            
+            
             tiffB5= Tiff(strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes/',name_im,'_5.tif'),'w');
             tagstruct.ImageLength = size(B5,1);
             tagstruct.ImageWidth = size(B5,2);
@@ -229,6 +246,9 @@ for i=1:numImagenes(2)
             tiffB5.setTag(tagstruct);
             tiffB5.write(B5); 
             tiffB5.close;
+            
+%             imwrite(B5,strcat(handles.pathProyecto,'/Tiffs 16 bits para procesar/Per bandes/',name_im,'_5_AUX.tif')); % Prueba para abrir en Photoshop
+            
             
             
 end
