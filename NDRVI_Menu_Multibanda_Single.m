@@ -333,7 +333,7 @@ else % Si se quiere seleccionar banda por banda
     title('Marcar primero blanco, luego gris y finalmente negro (banda Master)');
     colorbar;
     [x,y]= ginput(3);
-    
+      
     %% Guardamos los valores digitales de los puntos para luego mostrarlos en la UI
     maximo= ND_Master( round(y(1,1)) , round(x(1,1)) );  %blanco
     minimo_g= ND_Master( round(y(2,1)) , round(x(2,1)) );  %negro/gris
