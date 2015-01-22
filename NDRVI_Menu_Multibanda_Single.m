@@ -1085,6 +1085,41 @@ else
                                        end
                 end
             end
+            
+            
+            % Calculamos PCD 780 si se ha seleccionado la opción
+            if get(handles.chkPCD780,'Value')==1       
+                if  isempty(R670) || isempty(R780) 
+                    msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice PCD 780 Hemav');
+                    return;
+                else
+                        PCD780=PCD_BandaConLK(R670,R780,i,chkImagenes,chkProceso );                 
+                        numBandas=numBandas+1;
+                        dataImProcesada(:,:,numBandas)=(PCD780)*1000;
+                                       if i==1
+                                           maxBanda=max(max(dataImProcesada(:,:,numBandas)));
+                                                             minBanda=min(min(dataImProcesada(:,:,numBandas)));
+                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': PCD 780 Hemav','   Rango:(',num2str(maxBanda),' - ',num2str(minBanda),')']);
+                                       end
+                end
+            end
+            
+            % Calculamos PCD 800 si se ha seleccionado la opción
+            if get(handles.chkPCD800,'Value')==1       
+                if  isempty(R670) || isempty(R800) 
+                    msgbox('No hay información suficiente para calcular el índice: Comprueba las bandas de entrada','Error calculando índice PCD 800 Hemav');
+                    return;
+                else
+                        PCD800=PCD_BandaConLK(R670,R800,i,chkImagenes,chkProceso );                 
+                        numBandas=numBandas+1;
+                        dataImProcesada(:,:,numBandas)=(PCD800)*1000;
+                                       if i==1
+                                           maxBanda=max(max(dataImProcesada(:,:,numBandas)));
+                                                             minBanda=min(min(dataImProcesada(:,:,numBandas)));
+                                    fprintf(fileID,'%s \r\n',['Banda número',' ',num2str(numBandas),': PCD 800 Hemav','   Rango:(',num2str(maxBanda),' - ',num2str(minBanda),')']);
+                                       end
+                end
+            end
              
          
           
@@ -2235,3 +2270,21 @@ function chkFB2_Callback(hObject, eventdata, handles)
 % handles    structure with handles and user data (see GUIDATA)
 
 % Hint: get(hObject,'Value') returns toggle state of chkFB2
+
+
+% --- Executes on button press in chkPCD780.
+function chkPCD780_Callback(hObject, eventdata, handles)
+% hObject    handle to chkPCD780 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of chkPCD780
+
+
+% --- Executes on button press in chkPCD800.
+function chkPCD800_Callback(hObject, eventdata, handles)
+% hObject    handle to chkPCD800 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hint: get(hObject,'Value') returns toggle state of chkPCD800
