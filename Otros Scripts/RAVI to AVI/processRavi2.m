@@ -12,7 +12,7 @@ frame = zeros(imRows,imCols);
 [path,name,~] = fileparts(filename); 
 
 % Initialize the video writer object
-writerObj = VideoWriter([path,'\AVI\',name,'.avi']);
+writerObj = VideoWriter([path,'\AVI_2\',name,'.avi']);
 writerObj.FrameRate = 20;
 open(writerObj);
 
@@ -60,12 +60,17 @@ for n = 1:N
         if maxValue>maxTemp
             maxTemp=maxValue;
             tempChanged=1;
-        elseif maxValue * 1.2 < maxTemp
+        elseif maxValue  < initialMaxTemp
             
                 maxTemp=initialMaxTemp;
+         elseif maxValue  < maxTemp
+            
+               maxTemp=maxTemp;
         end
         % Evita menores que 0
         frame(find(frame<0))=0;
+        
+        % Restringe los valores a 0-1
         frame= frame/maxTemp;
         
         writeVideo(writerObj,frame);
