@@ -14,7 +14,7 @@ function [varargout]= PCD_BandaConLK(R670,R780,iteracion,chkImagenes,chkProceso 
 A=R780.LK;
 B=R670.LK;
 
-B(find(B===))=0.0001;% Para evitar divisiones entre 0
+B(find(B==0))=0.0001;% Para evitar divisiones entre 0
 
 
  ima=     A ./ B  ;
